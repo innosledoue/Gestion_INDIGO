@@ -1,0 +1,117 @@
+/*-fx-background-size: 100%;*/
+-fx-background-repeat: no-repeat ;
+	-fx-background-color: white;
+	/*-fx-background-color: skyblue, derive(skyblue, 25%);*/
+/*-fx-background-insets: -20, -10;
+-fx-background-image: url("bg2.jpg"), url("DukeWithHelmet.png");
+-fx-background-position: left top, center;
+-fx-background-repeat: no-repeat;*/
+
+
+
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.text.Font?>
+
+<children>
+      <ImageView fitHeight="551.0" fitWidth="269.0" opacity="0.67" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Image_Pro/login/25.jpg" />
+         </image>
+      </ImageView>
+      <Button layoutX="51.0" layoutY="89.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="110.0" text="Recherche">
+         <font>
+            <Font name="System Bold" size="10.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <ImageView fitHeight="37.0" fitWidth="37.0" layoutX="43.0" layoutY="78.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Image_Pro/crub/53732.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="53.0" layoutY="150.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="110.0" text="Modifier">
+         <font>
+            <Font name="System Bold" size="10.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <ImageView fitHeight="30.0" fitWidth="34.0" layoutX="43.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Image_Pro/crub/images.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="53.0" layoutY="209.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="110.0" text="Supprimer">
+         <font>
+            <Font name="System Bold" size="10.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button layoutX="59.0" layoutY="284.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="133.0" text="Aperçu Avant Impression" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font name="System Bold" size="10.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button layoutX="53.0" layoutY="367.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="110.0" text="Impression">
+         <font>
+            <Font name="System Bold" size="10.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button layoutX="53.0" layoutY="436.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="110.0" text="Exporter">
+         <font>
+            <Font name="System Bold" size="10.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button layoutX="53.0" layoutY="493.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="110.0" text="Accueil">
+         <font>
+            <Font name="System Bold" size="10.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <ImageView fitHeight="34.0" fitWidth="37.0" layoutX="36.0" layoutY="206.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Image_Pro/crub/30195.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="63.0" fitWidth="51.0" layoutX="13.0" layoutY="277.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Image_Pro/crub/Actions-document-preview-icon.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="41.0" fitWidth="51.0" layoutX="22.0" layoutY="360.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Image_Pro/crub/Les-communicateurs-icon-impression-impression-varie.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="51.0" fitWidth="58.0" layoutX="33.0" layoutY="421.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Image_Pro/crub/export.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="51.0" fitWidth="62.0" layoutX="13.0" layoutY="479.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Image_Pro/menu/500_F_33526550_8Dg1oTuNATXZ0jEONVxM13C2F3Qc39l1.jpg" />
+         </image>
+      </ImageView>
+   </children>
+

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="860.0" maxWidth="900.0" prefHeight="515.0" prefWidth="733.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlleur.IconnectControl">
+   <children>
+      <ImageView fitHeight="493.0" fitWidth="733.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="30.926483154296875" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../../../Image_Pro/login/2.jpg" />
+         </image>
+      </ImageView>
+      <RadioButton fx:id="rdbt_etat" contentDisplay="GRAPHIC_ONLY" focusTraversable="false" graphicTextGap="9.0" layoutX="11.0" layoutY="485.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="391.0" textFill="#3006e8" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1a293616" height="466.0" layoutX="323.0" layoutY="10.0" stroke="#00000029" strokeType="INSIDE" width="391.0">
+         <effect>
+            <DropShadow />
+         </effect>
+      </Rectangle>
+      <TextField fx:id="user" alignment="CENTER" layoutX="378.0" layoutY="164.0" onMouseClicked="#TextFieldfocus" prefHeight="31.0" prefWidth="311.0" promptText="nom utilisateur  ">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </TextField>
+      <PasswordField fx:id="pwd" alignment="CENTER" layoutX="378.0" layoutY="274.0" onMouseClicked="#PasswordFieldfocus" prefHeight="31.0" prefWidth="311.0" promptText="mot de passe ">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </PasswordField>
+      <Button fx:id="bt_anule" cancelButton="true" layoutX="378.0" layoutY="392.0" mnemonicParsing="false" onAction="#annule" prefHeight="31.0" prefWidth="72.0" style="-fx-background-radius: 25px;" text="Cancel">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Button>
+      <Button fx:id="bt_valide" defaultButton="true" layoutX="608.0" layoutY="392.0" mnemonicParsing="false" onAction="#connect" prefHeight="31.0" prefWidth="81.0" style="-fx-background-radius: 25px;" text="Valider">
+         <effect>
+            <DropShadow />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <ImageView fitHeight="45.0" fitWidth="41.0" layoutX="336.0" layoutY="157.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Image_Pro/login/1.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="45.0" fitWidth="41.0" layoutX="341.0" layoutY="266.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Image_Pro/login/29747.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="msg" layoutX="398.0" layoutY="202.0" prefHeight="22.0" prefWidth="277.0" textFill="#f20a0a">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="45.0" fitWidth="41.0" layoutX="341.0" layoutY="157.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="msg1" layoutX="395.0" layoutY="314.0" prefHeight="22.0" prefWidth="277.0" textFill="#f20a0a">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Button fx:id="bt_test" layoutX="11.0" layoutY="441.0" mnemonicParsing="false" onMouseClicked="#test" text="Test" />
+      <Label fx:id="lb_test" layoutX="83.0" layoutY="407.0" prefHeight="69.0" prefWidth="200.0" style="-fx-background-color: white;" />
+   </children>
+</AnchorPane>

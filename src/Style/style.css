@@ -1,0 +1,36 @@
+.com{
+	-fx-background-image:url("../../Image_Pro/menu/5.png");
+	-fx-background-size: cover, auto;
+	}
+	
+.art{
+	-fx-background-image:url("../../Image_Pro/menu/6.png");
+	-fx-background-size: 100%;
+	-fx-background-repeat: no-repeat ;
+	-fx-background-color: white;
+	}
+	
+.Sta{
+	-fx-background-image:url("../../Image_Pro/menu/sta_1.jpg");
+	-fx-background-size: 85%;
+	-fx-background-repeat: no-repeat ;
+	-fx-background-color: white;
+}
+	
+.cli{
+	-fx-background-image:url("../../Image_Pro/menu/2.png");
+	-fx-background-size: 100%;
+	-fx-background-repeat: no-repeat ;
+	-fx-background-color: white;
+	}
+	
+.par{
+	-fx-background-image:url("../../Image_Pro/menu/7.png");
+	-fx-background-size: 95%;
+	-fx-background-repeat: no-repeat ;
+	-fx-background-color: white;
+}
+
+
+
+
