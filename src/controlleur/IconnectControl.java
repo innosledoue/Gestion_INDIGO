@@ -4,23 +4,33 @@ package controlleur;
 ///import java.beans.EventHandler;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.ListIterator;
 import java.util.ResourceBundle;
 
 
 import controlleur.donnee.*;
 import javafx.stage.Stage;
+import javafx.event.EventHandler;
+//import javafx.stage.StageStyle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
@@ -33,10 +43,11 @@ public class IconnectControl implements Initializable {
 	private  ArrayList<Personne> genre;
 	private mainApp main;
 	private Stage stage;
+	private Calendar date;
 	
 	//variable dont l'id est specifier dans le fichier fxml
 	@FXML
-	private Label msg,msg1,lb_test;
+	private Label msg,msg1,lb_r,lb_r1;
 	@FXML
 	private TextField user;
 	@FXML
@@ -45,6 +56,8 @@ public class IconnectControl implements Initializable {
 	private RadioButton rdbt_etat;
 	@FXML
 	private Button bt_test;
+	@FXML
+	private CheckBox ch_r;
 
 	
 	
@@ -62,6 +75,7 @@ public class IconnectControl implements Initializable {
 		Connection col=base.connect();
 		rdbt_etat.setText("Connexion Locale etablit");
 		rdbt_etat.setSelected(true);
+		
 	
 		
 		try {
@@ -70,9 +84,7 @@ public class IconnectControl implements Initializable {
 			while(rs.next()) {
 				genre.add(new Personne(rs.getInt("idProfil"),rs.getString("speudo"),rs.getString("mot_passe")));	
 			}
-			System.out.println(genre.get(0).getCode()+"  "+genre.get(0).getspeudo()+"  "+genre.get(0).getMot_passe());
-
-			System.out.println(genre.get(1).getCode()+"  "+genre.get(1).getspeudo()+"  "+genre.get(1).getMot_passe());
+		
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -82,7 +94,18 @@ public class IconnectControl implements Initializable {
 		}
 		
 		
-		
+		rdbt_etat.addEventHandler(KeyEvent.ANY, new EventHandler<KeyEvent>() {
+		    @Override
+		    public void handle(KeyEvent event) {
+		        event.consume();
+		    }
+		});
+		rdbt_etat.addEventFilter(MouseEvent.ANY, new EventHandler<MouseEvent>() {
+		    @Override
+		    public void handle(MouseEvent event) {
+		        event.consume();
+		    }
+		});
 		/*bt_test.setOnMouseClicked(EventHandler<MouseEvent e>(){
 	
 		public void handle(MouseEvent e) {
@@ -96,7 +119,8 @@ public class IconnectControl implements Initializable {
 		
 		}
 		);*/
-			
+		
+		
 	}
 		
 	
@@ -106,6 +130,11 @@ public class IconnectControl implements Initializable {
 		this.main=ter;
 	}
 	
+	@FXML
+	public void click() {
+		lb_r.setText(ch_r.selectedProperty().getValue().booleanValue()+"");
+		lb_r1.setText(ch_r.selectedProperty().getValue()+"");
+	}
 	public void connect() throws IOException, SQLException{
 		
 		
@@ -121,6 +150,7 @@ public class IconnectControl implements Initializable {
 				{
 					stage = new Stage();
 					stage.setTitle("SARL INDIGO");
+					stage.setFullScreen(false);
 					try {
 						// Load root layout from fxml file.
 						FXMLLoader loader = new FXMLLoader();
@@ -210,7 +240,7 @@ public class IconnectControl implements Initializable {
 		public void test( MouseEvent e) {
 			if(e.getButton().equals(MouseButton.PRIMARY)) {
 				if(e.getClickCount()==2) {
-					lb_test.setText("voila ca oh hihihihih !!!!!!");
+					
 				}
 			}
 		}

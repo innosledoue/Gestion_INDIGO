@@ -19,14 +19,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.SortType;
+import javafx.scene.control.TableRow;
 
 public class Iclient_MenuControl  implements Initializable {  
 	
@@ -34,9 +37,13 @@ public class Iclient_MenuControl  implements Initializable {
 	private Connection com;
 	private ObservableList<Client> base;
 	
+	
+	private Stage stage,stage1,stage2,stage3,stage4,stage5,stage6,stage7;
 	private MenuControl main;
-	private Personne person;
-	Stage stage;
+	private Client person;
+	
+	
+	
 	
 	@FXML
 	private TableView<Client>table;
@@ -53,10 +60,11 @@ public class Iclient_MenuControl  implements Initializable {
 	@FXML
 	private TableColumn<Client,String> table_date;
 	@FXML
-	ComboBox<String> bt_combo;
+	private ComboBox<String> bt_combo;
 	@FXML
-	TextField txt;
-
+	private TextField txt;
+	@FXML
+	private Button bt_NC;
 
 
 
@@ -68,12 +76,20 @@ public class Iclient_MenuControl  implements Initializable {
 	public Stage getStage() {
 		return this.stage;
 		}
+	public Stage getStage1() {
+		return this.stage1;
+		}
 	
 	public void setControl(MenuControl ter) {
 		this.main=ter;
 		
 	}
-	
+	public Client getClient() {
+		return  this.person;
+	}
+	/*public void setClient(Client perso) {
+		person = perso;
+	}*/
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -106,25 +122,83 @@ public class Iclient_MenuControl  implements Initializable {
 		table.setItems(null);
 		table.setItems(base);
 		
-		bt_combo.getItems().add("Par default");
+		/*bt_combo.getItems().add("Par default");
 		bt_combo.getItems().add("CODE");
 		bt_combo.getItems().add("NOM");
 		bt_combo.getItems().add("PRENOM");
 		
-		/*bt_combo.valueProperty().addListener(observable->  rio(bt_combo.getValue()));*/
+		 * dans cette figure notre controlleu possede une liste deroulante dc l'action de click se fait sur les ligne soit les tablerow
 		
-		// reagir a tout changement fait sur la tableview
-	    table.getSelectionModel().selectedItemProperty().addListener(
-	            (observable, oldValue, newValue) -> showPersonDetails(newValue ));
+		bt_combo.setOnMouseClicked(e-> {
+			if(bt_combo.getSelectionModel().selectedItemProperty().equals("CODE")) {
+				table_code.setSortable(true);
+				table_code.setEditable(true);
+			
+			}
+			if(bt_combo.getSelectionModel().selectedItemProperty().equals("NOM")) {
+				table_nom.setSortable(true);
+				table_nom.setEditable(true);
+			}
+			if(bt_combo.getSelectionModel().selectedItemProperty().equals("PRENOM")) {
+				table_prenom.setSortable(true);
+				table_prenom.setEditable(true);
+			}
+			if(bt_combo.getSelectionModel().selectedItemProperty().equals("Par default")) {
+				table_date.setSortable(true);
+				table_date.setEditable(true);
+			} 
+				
 		
+			
+	});*/
+		table.setRowFactory( tv -> {
+			   TableRow<Client> row = new TableRow<>();
+			   row.setOnMouseClicked(e -> {
+			      if (e.getClickCount() == 2 && (!row.isEmpty()) ) {
+			    	
+			         try {
+			        	voirInfo(table.getSelectionModel().getSelectedItem());
+					} catch (IOException | SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}                   
+			      }
+			   });
+			   person=table.getSelectionModel().getSelectedItem();
+			   return row;
+			});
 		
-					
+			bt_NC.setOnMouseClicked(e-> {
+					if(e.getClickCount()>=2) {
+						e.consume();
+				}
+			});
 	}
-	  
-	private Object showPersonDetails(Client newValue) {
+	/* methode tres tres importante permet le double click
+	  @FXML
+	public void action (MouseEvent e) {
+		  if(e.getButton().equals(MouseButton.PRIMARY)) {
+				if(e.getClickCount()==2) {
+					 table.getSelectionModel().selectedItemProperty().addListener(
+					            (observable, oldValue, newValue) -> {
+									try {
+										voirInfo(newValue);
+									} catch (IOException e1) {
+										// TODO Auto-generated catch block
+										e1.printStackTrace();
+									} catch (SQLException e1) {
+										// TODO Auto-generated catch block
+										e1.printStackTrace();
+									}
+								});
+				}
+			}
 		// TODO Auto-generated method stub
-		return null;
-	}
+		
+	}*/
 	public void rio(String ert) {
 		if(ert=="CODE") {
 			table_code.setSortable(true);
@@ -145,75 +219,201 @@ public class Iclient_MenuControl  implements Initializable {
 		}
 	}
 	
+
+	public void voirInfo( Client homme) throws IOException, SQLException, Exception {
+		if(homme!=null) {
+			 try {
+				  Stage exit=main.getStage();  
+				 
+				 // Create the dialog Stage.
+			        stage = new Stage();
+			        stage.setTitle("Edit Person");
+			        
+			        // Load the fxml file and create a new stage for the popup dialog.
+			        FXMLLoader loader = new FXMLLoader();
+			        loader.setLocation(Iclient_MenuControl.class.getResource("vue/IclientAjout.fxml"));
+			        AnchorPane page = (AnchorPane) loader.load();
+			        	
+			        IclientAjoutControl controller = loader.getController();
+			        controller.setcontrol1(this);
+			        controller.setClient(homme);
+			        
+			      
+			        stage.initModality(Modality.WINDOW_MODAL);
+			        stage.initOwner(exit);
+			        Scene scene = new Scene(page);
+			        stage.setScene(scene);
+
+			        // Set the person into the controller.
+			        
+
+			        // Show the dialog and wait until the user closes it
+			        stage.showAndWait();
+
+			       
+			    } catch (IOException e) {
+			        e.printStackTrace();
+			      
+			    }
+			
+		}
+			
+		
+	}
+	
 	@FXML
 	public void clientAjout() throws Exception {
-	     Stage exit=main.getStage();
-	     
-		 stage = new Stage();
-         stage.setTitle("SARL INDIGO");
-          // Load root layout from fxml file.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Iclient_MenuControl.class.getResource("vue/IclientAjout.fxml"));
-            AnchorPane anchor= (AnchorPane) loader.load();
-          
-            Scene scene = new Scene(anchor);
-            stage.setScene(scene);
-            stage.show();
-            exit.close();
+		try {
+			 Stage exit=main.getStage();
+		        // Load the fxml file and create a new stage for the popup dialog.
+		        FXMLLoader loader = new FXMLLoader();
+		        loader.setLocation(Iclient_MenuControl.class.getResource("vue/IclientAjout.fxml"));
+		        AnchorPane page = (AnchorPane) loader.load();
+		        	
+		        
+		        // Create the dialog Stage.
+		        stage1  = new Stage();
+		        stage1.setTitle("Edit Person");
+		        stage1.initModality(Modality.WINDOW_MODAL);
+		        stage1.initOwner(exit);
+		        Scene scene = new Scene(page);
+		        stage1.setScene(scene);
+
+		        // Set the person into the controller.
+		        IclientAjoutControl controller = loader.getController();
+		        controller.setcontrol1(this);
+		        controller.setClient(person);
+
+		        // Show the dialog and wait until the user closes it
+		        stage1.showAndWait();
+
+		       
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		      
+		    }
+
 	}
 	
           
-        @FXML
+     @FXML
 	public void clientRech() throws Exception {
 		Stage exit=main.getStage();
-		Stage stage = new Stage();
-        stage.setTitle("SARL INDIGO");
-        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("vue/MenuApp.fxml"))));
+		stage2 = new Stage();
+        stage2.setTitle("SARL INDIGO");
+        
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Iclient_MenuControl.class.getResource("vue/Modifi_Clients.fxml"));
+        AnchorPane page = (AnchorPane) loader.load();
+        
+        Scene scene = new Scene(page);
+        stage2.setScene(scene);
+        
+        stage2.initModality(Modality.WINDOW_MODAL);
+        stage2.initOwner(exit);
+        //permet de connecter les controleurs
+        Modifi_ClientsControl controller = loader.getController();
+         controller.setControl1(this);
+         
+       // Modifi_ClientsControl controller = loader.getController();
+       // controller.setControl1(this);
+        //controller.setClient(person);
         //stage.initModality(Modality.WINDOW_MODAL);
         //stage.initOwner(((Node) event.getSource()).getScene().getWindow());
-     stage.show(); 
-     exit.close();
+        stage2.showAndWait();
+         
+	}
+     
+    @FXML
+ 	public void clientModif() throws IOException {
+ 		
+ 		Stage exit=main.getStage();
+ 		stage4 = new Stage();
+         stage4.setTitle("SARL INDIGO");
+         FXMLLoader loader = new FXMLLoader();
+         loader.setLocation(Iclient_MenuControl.class.getResource("vue/Modifi_Clients.fxml"));
+         AnchorPane page = (AnchorPane) loader.load();
+         Scene scene = new Scene(page);
+         stage4.setScene(scene);
+         stage4.initModality(Modality.WINDOW_MODAL);
+         stage4.initOwner(exit);
+         
+         
+        Modifi_ClientsControl controller = loader.getController();
+         controller.setControl2(this);
+         
+         //controller.setClient(person);
+         //stage.initModality(Modality.WINDOW_MODAL);
+         //stage.initOwner(((Node) event.getSource()).getScene().getWindow());
+         stage2.showAndWait();
+        
+ 	}
 
         
-	}
 	@FXML
 	public void clientSupp() throws IOException {
 		Stage exit=main.getStage();
-		Stage stage = new Stage();
-        stage.setTitle("SARL INDIGO");
-        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("vue/MenuApp.fxml"))));
+
+		stage3 = new Stage();
+        stage3.setTitle("SARL INDIGO");
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Iclient_MenuControl.class.getResource("vue/Modifi_Clients.fxml"));
+        AnchorPane page = (AnchorPane) loader.load();
+        Scene scene = new Scene(page);
+        stage3.setScene(scene);
+        stage3.initModality(Modality.WINDOW_MODAL);
+        stage3.initOwner(exit);
+        
+        
+       Modifi_ClientsControl controller = loader.getController();
+        controller.setControl3(this);
+        //controller.setClient(person);
         //stage.initModality(Modality.WINDOW_MODAL);
         //stage.initOwner(((Node) event.getSource()).getScene().getWindow());
-      
-        stage.show();
-        exit.close();
+        stage3.showAndWait();
 	}
-	@FXML
-	public void clientModif() throws IOException {
-		Stage exit=main.getStage();
-		Stage stage = new Stage();
-        stage.setTitle("SARL INDIGO");
-        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("vue/MenuApp.fxml"))));
-        //stage.initModality(Modality.WINDOW_MODAL);
-        //stage.initOwner(((Node) event.getSource()).getScene().getWindow());
-       
-        stage.show();
-        exit.close();
-       
-	}
-	@FXML
+		@FXML
 	public void clientApercuImpr() throws IOException {
 		Stage exit=main.getStage();
-		Stage stage = new Stage();
-        stage.setTitle("SARL INDIGO");
-        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("vue/MenuApp.fxml"))));
+		stage6 = new Stage();
+        stage6.setTitle("SARL INDIGO");
+         FXMLLoader loader = new FXMLLoader();
+     loader.setLocation(Iclient_MenuControl.class.getResource("vue/Modifi_Clients.fxml"));
+     AnchorPane page = (AnchorPane) loader.load();
+     Scene scene = new Scene(page);
+        stage6.setScene(scene);
+        //stage6.setScene(new Scene(FXMLLoader.load(getClass().getResource("vue/MenuApp.fxml"))));
         //stage.initModality(Modality.WINDOW_MODAL);
         //stage.initOwner(((Node) event.getSource()).getScene().getWindow());
-     stage.show();   
+     stage6.show();   
      exit.close();
+   
+          
+	}
+		
+		
+		
+	@FXML
+	public void Menu() throws IOException {
+		Stage exit=main.getStage();
+		stage7= new Stage();
+        stage7.setTitle("SARL INDIGO");
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Iclient_MenuControl.class.getResource("vue/MenuApp.fxml"));
+        AnchorPane page = (AnchorPane) loader.load();
+        MenuControl controller = loader.getController();
+		controller.setControl(this);
+        		
+        Scene scene = new Scene(page);
+        stage7.setScene(scene);
+        stage7.show();
+        exit.close();
      
 	}
 	
+	public Stage getstage7() {
+		return stage7;
+	}
 	
 	//methode qui permet le typage d'une Date en String
 	public String DateText(Date ert) {
@@ -222,24 +422,20 @@ public class Iclient_MenuControl  implements Initializable {
 		return textDate;
 	}
 	
-	public TableView<Client> getTable() {
-		return table;
+	public void setTable(Client eer) {
+		this.table.getItems().add(eer);
 	}
 	
 	
-	//fait Parste de Integer en int
+	//fait Passe de Integer en int
 	public int forme(Integer rt) {
 		return rt.intValue();
 	}
 	
-	public Personne getPerson() {
-		return person;
-	}
-	public void setPerson(Personne person) {
-		this.person = person;
-	}
+	
+	
 		
-	//ici on utlise la fonction lammda de java 8 mais le soucis est que la Integer generais des errur a voir
+	//ici on utlise la fonction lammda de java 8 mais le soucis est que la Integer generais des erreur a voir
 			//table_nom.setCellValueFactory(cellData -> cellData.getValue().getPropertyNom());
 			//table_prenom.setCellValueFactory(cellData -> cellData.getValue().getPropertyPrenom());
 			//table_carte.setCellValueFactory(cellData -> cellData.getValue().getCarte());
@@ -264,5 +460,19 @@ public class Iclient_MenuControl  implements Initializable {
     //stage.initModality(Modality.WINDOW_MODAL);
 //stage.initOwner(((Node) event.getSource()).getScene().getWindow());
 //stage.show();
+	
+	/*table.setOnMouseClicked(new EventHandler<MouseEvent>() {
+	   @Override 
+	   public void handle(MouseEvent e) {
+	      if (e.isPrimaryButtonDown() && e.getClickCount() == 2) {
+	         txt.setText(table.getSelectionModel().getSelectedItem().getCode());                   
+	      }
+	   }
+	});
+bt_combo.valueProperty().addListener(observable->  rio(bt_combo.getValue()));*/
+
+// reagir a tout changement fait sur la tableview
+	
+	
 	
 }

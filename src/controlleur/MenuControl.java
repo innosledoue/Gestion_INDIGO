@@ -18,8 +18,10 @@ import javafx.scene.layout.AnchorPane;
 
 public class MenuControl implements Initializable {
 	
-	private Stage stage;
+	private Stage stage,stage1,stage2,stage3,stage4;
+	private Stage exit;
   	private IconnectControl main;
+  	Iclient_MenuControl main1;
   	
 	@FXML
 	private Button cli;
@@ -44,22 +46,67 @@ public class MenuControl implements Initializable {
 	
 	
 	
+	
 	public MenuControl() {	
+		
 	}
 	
 	public Stage getStage() {
 		return this.stage;
 		}
+	public Stage getStage1() {
+		return this.stage1;
+		}
+	public Stage getStage2() {
+		return this.stage2;
+		}
+	public Stage getStage3() {
+		return this.stage3;
+		}
+	public Stage getStage4() {
+		return this.stage4;
+		}
+	
+	
+	
 	
 	public void setControl(IconnectControl ter) {
 		this.main=ter;
+						}
+	public void setControl(Iclient_MenuControl ter) {
+		this.main1=ter;
+		
 				}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-		
-	
+
+		cli.setOnMouseClicked(e-> {
+			if(e.getClickCount()>=2) {
+				e.consume();
+		}
+	});
+		com.setOnMouseClicked(e-> {
+			if(e.getClickCount()>=2) {
+				e.consume();
+		}
+	});
+		par.setOnMouseClicked(e-> {
+			if(e.getClickCount()>=2) {
+				e.consume();
+		}
+	});
+		sta.setOnMouseClicked(e-> {
+			if(e.getClickCount()>=2) {
+				e.consume();
+		}
+	});
+		art.setOnMouseClicked(e-> {
+			if(e.getClickCount()>=2) {
+				e.consume();
+		}
+	});
 		
 	}
 	
@@ -68,11 +115,10 @@ public class MenuControl implements Initializable {
 	
 	@FXML
 	public void clientApp() throws Exception {
-		Stage exit=main.getStage();
 		
-		Stage stage = new Stage();
+	 stage=new Stage();
          stage.setTitle("SARL INDIGO");
-         
+        
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MenuControl.class.getResource("vue/Iclient_Menu.fxml"));
@@ -86,47 +132,56 @@ public class MenuControl implements Initializable {
             
             //ouverture de la fenetre Iclient_Menu et fermeture de celle ci
             stage.show(); 
-            exit.close();
-      
+            
+            try{
+            	exit=main.getStage();
+            	 exit.close();
+            	}
+    		catch(NullPointerException e) {
+    		exit=main1.getstage7();	
+    		 exit.close();
+    		}
+     
         
 	}
 	@FXML
 	public void commandeApp() throws Exception {
 		Stage exit=main.getStage();
-		Stage stage = new Stage();
-        stage.setTitle("SARL INDIGO");
-        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("vue/MenuApp.fxml"))));
-        stage.show();   
+		stage1=new Stage();
+        stage1.setTitle("SARL INDIGO");
+        stage1.setScene(new Scene(FXMLLoader.load(getClass().getResource("vue/MenuApp.fxml"))));
+        stage1.show();   
         exit.close();
         
 	}
 	@FXML
 	public void articleApp() throws Exception {
 		Stage exit=main.getStage();
-		Stage stage = new Stage();
-        stage.setTitle("SARL INDIGO");
-        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("vue/MenuApp.fxml"))));
+		stage2=new Stage();
+		stage2 = new Stage();
+        stage2.setTitle("SARL INDIGO");
+        stage2.setScene(new Scene(FXMLLoader.load(getClass().getResource("vue/MenuApp.fxml"))));
         
-        stage.show();
+        stage2.show();
         exit.close();
 	}
 	@FXML
 	public void statistqueApp() throws IOException {
 		Stage exit=main.getStage();
-		Stage stage = new Stage();
-        stage.setTitle("SARL INDIGO");
-        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("vue/MenuApp.fxml"))));
-        stage.show();
+		stage3=new Stage();
+        stage3.setTitle("SARL INDIGO");
+        stage3.setScene(new Scene(FXMLLoader.load(getClass().getResource("vue/MenuApp.fxml"))));
+        stage3.show();
        exit.close();
 	}
 	@FXML
 	public void parametreApp() throws IOException {
 		Stage exit=main.getStage();
-		Stage stage = new Stage();
+		stage4=new Stage();
 		
-        stage.setTitle("SARL INDIGO");
-        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("vue/MenuApp.fxml"))));
-         stage.show(); 
+        stage4.setTitle("SARL INDIGO");
+        stage4.setScene(new Scene(FXMLLoader.load(getClass().getResource("vue/MenuApp.fxml"))));
+         stage4.show(); 
          exit.close();
      
 	}

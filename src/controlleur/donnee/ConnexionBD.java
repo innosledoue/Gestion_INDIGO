@@ -2,18 +2,11 @@ package controlleur.donnee;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-
-
-
 public class ConnexionBD {
 	 
-	
-	
 	public ConnexionBD() {
 		
 }
-	
-	
 
 	public Connection connect() {
 		Connection com=null;
@@ -23,7 +16,6 @@ public class ConnexionBD {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			//cree le lien de connection
 		 com=DriverManager.getConnection("jdbc:mysql://localhost:3306/Person", "root", "la7saintete");
-          
 				
 			} catch (Exception e) {
 			// TODO Auto-generated catch block

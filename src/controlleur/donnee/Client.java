@@ -29,7 +29,8 @@ public class Client {
 	}
 
 	public Client( String code,String nom,String prenom,String ville,String code_postal,String addresse,String mobile,
-			String email,String remarque,String tel,Integer a,String temp) {
+			String email,String remarque,String tel,Integer a,String temp) 
+	{
 		this.code=new SimpleStringProperty(code);
 		this.nom=new SimpleStringProperty(nom);
 		this.prenom=new SimpleStringProperty(prenom);
@@ -45,7 +46,8 @@ public class Client {
 	}
 
 public String getCode() {
-	return code.get();}
+	return code.get();
+	}
 
 public void setCode(String esr) {
 	this.code.set(esr);
@@ -83,8 +85,6 @@ public void setVille(String esr) {
 public StringProperty getPropertyVille() {
 	return ville;
 }
-
-
 public String getAddresse() {
 	return addresse.get();}
 
@@ -104,9 +104,6 @@ public void setMobile(String esr) {
 public StringProperty getPropertyMobile() {
 	return mobile;
 }
-
-
-
 public Integer getCarteF() {
 	return carte_fidele.get();}
 
@@ -116,8 +113,6 @@ public void setCarteF(Integer esr) {
 public IntegerProperty getPropertyCarte() {
 	return carte_fidele;
 }
-
-
 public String getTel() {
 	return tel.get();}
 
@@ -147,31 +142,23 @@ public void setRemarque(String esr) {
 public StringProperty getPropertyRemarque() {
 	return remarque;
 }
-
-
 public String getDate() {
 	return date.get();}
-
 public void setDate(String esr) {
 	this.date.set(esr);
 }
-
 public StringProperty getPropertyDate() {
 	return date;
 }
-
 public String getCode_postal() {
 	return code_postal.get();
 }
-
 public void setCode_postal(String ert) {
 	this.code_postal.set(ert);
 }
 public StringProperty getPropertyCode_postal() {
 	return code_postal;
 }
-
-
 /*public Integer getCarte() {
 return carte_fidele.get();}
 
