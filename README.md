@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿# Gestion_INDIGO
+=======
+# Gestion_INDIGO
+>>>>>>> 99801b59d763f2a82dd7f08763b73c40bdd847cd
 Notre Projet consiste à developper une application de Gestion des clients passant des commandes à une Entreprise. 
 Cette Application est developper dans le langage JavaFX utilisant le Design Pattern SceneBuilder pour les differents 
 interface selon le modèle MVC. Les Données sont enregistrées dans un SGBD MySQL suivant l'Architecture 2/3. 
@@ -16,4 +20,8 @@ Kouakou Kouadio Kan Henry-Joel et Diomande Tawan Mickael.
  --Article
  --Commandes
  --Statistique
+<<<<<<< HEAD
  --Paramètres
+=======
+ --Paramètres
+>>>>>>> 99801b59d763f2a82dd7f08763b73c40bdd847cd
