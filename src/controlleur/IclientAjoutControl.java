@@ -226,8 +226,7 @@ try {
 				System.err.println("Probleme de  connexion a la base de donne");
 			}
 			
-			lien.setTable(new Client(tx_code.getText(),tx_nom.getText(),tx_prenom.getText(),tx_ville.getText(),tx_code_postal.getText(),tx_addresse.getText(),tx_mobile.getText(),tx_email.getText(),tx_remarque.getText(),tx_tel_fixe.getText(),loot(ch_carte.selectedProperty().get()),tx_date.getText()));
-			
+			lien.initialize(null, null);
 			stage1.close();
 			
 		}else {

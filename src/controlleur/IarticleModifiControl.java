@@ -1,6 +1,5 @@
 package controlleur;
 
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -14,6 +13,7 @@ import java.util.Date;
 import java.util.ListIterator;
 import java.util.ResourceBundle;
 
+import controlleur.donnee.Articles;
 import controlleur.donnee.Client;
 import controlleur.donnee.ConnBD;
 import javafx.collections.FXCollections;
@@ -21,10 +21,8 @@ import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -34,6 +32,7 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -42,28 +41,26 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-
-public class Modifi_ClientsControl implements Initializable {
-
+public class IarticleModifiControl {
 	
-	private Iclient_MenuControl main,main1,main2,main3,main4;
+	private ArticleMenu main,main1,main2,main3,main4;
 	private Stage exit,exit1,exit2,stage,stage1;
 	private ConnBD donne;
-	private ObservableList<Client> base1;
-	private ArrayList<Client>base;
+	private ObservableList<Articles> base1;
+	private ArrayList<Articles>base;
 	private Connection com;
-    private TableView<Client>OWN,own1;
+    private TableView<Articles>OWN,own1;
 	private String critere;
 	
 	
 	@FXML
-	private TableView<Client>table;
+	private TableView<Articles>table;
 	@FXML
-	private TableColumn<Client,String> tcode;
+	private TableColumn<Articles,String> tcode;
 	@FXML
-	private TableColumn<Client,String> tnom;
+	private TableColumn<Articles,String> tdesig;
 	@FXML
-	private TableColumn<Client,String> tprenom;
+	private TableColumn<Articles,String> tdate;
 	@FXML
 	private TableColumn<Client,String> tville;
 	@FXML
@@ -566,7 +563,6 @@ public class Modifi_ClientsControl implements Initializable {
 	}
 	
 	
-	
-	
+
 
 }

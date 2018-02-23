@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="621.0" prefWidth="648.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+ <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#3e19c200" focusTraversable="true" height="428.0" layoutX="2.0" layoutY="191.0" stroke="#000000f1" strokeLineCap="ROUND" width="662.0">
+         <effect>
+            <DropShadow color="#e40d0d94" radius="4.75" width="0.0" />
+         </effect>
+      </Rectangle>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#20e3dc32" focusTraversable="true" height="194.0" layoutX="2.0" layoutY="2.0" stroke="TRANSPARENT" strokeLineCap="ROUND" width="661.0">
+         <effect>
+            <DropShadow color="#e40d0d94" radius="4.75" width="0.0" />
+         </effect>
+      </Rectangle>
+      <ImageView fitHeight="100.0" fitWidth="108.0" layoutX="86.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="469.0" AnchorPane.leftAnchor="86.0" AnchorPane.rightAnchor="411.0" AnchorPane.topAnchor="52.0">
+         <image>
+            <Image url="@../../../Image_Pro/crub/produit.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="185.0" layoutY="61.0" prefHeight="68.0" prefWidth="307.0" text="GESTION DES ARTICLES">
+         <font>
+            <Font name="Bodoni MT" size="25.0" />
+         </font>
+      </Label>
+      <Label fx:id="lb_sig" layoutX="185.0" layoutY="84.0" prefHeight="68.0" prefWidth="284.0" text="ajout d'un article">
+         <font>
+            <Font name="Bodoni MT" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="lb_code" focusTraversable="false" layoutX="24.0" layoutY="223.0" prefHeight="24.0" prefWidth="68.0" text="Code" textFill="#022d30fa" textOverrun="WORD_ELLIPSIS">
+         <font>
+            <Font name="Berlin Sans FB" size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="lb_cc" focusTraversable="false" layoutX="210.0" layoutY="219.0" prefHeight="32.0" prefWidth="120.0" text="Code Categorie" textFill="#022d30fa" textOverrun="WORD_ELLIPSIS">
+         <font>
+            <Font name="Berlin Sans FB" size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="lb_qu" focusTraversable="false" layoutX="34.0" layoutY="487.0" prefHeight="24.0" prefWidth="68.0" text="Quantite" textFill="#022d30fa" textOverrun="WORD_ELLIPSIS">
+         <font>
+            <Font name="Berlin Sans FB" size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="lb_pr" focusTraversable="false" layoutX="358.0" layoutY="483.0" prefHeight="32.0" prefWidth="111.0" text="Prix Unitaire" textFill="#022d30fa" textOverrun="WORD_ELLIPSIS">
+         <font>
+            <Font name="Berlin Sans FB" size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="lb_date" focusTraversable="false" layoutX="421.0" layoutY="217.0" prefHeight="32.0" prefWidth="144.0" text="Date Enregistrement" textFill="#022d30fa" textOverrun="WORD_ELLIPSIS">
+         <font>
+            <Font name="Berlin Sans FB" size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="lb_dg" focusTraversable="false" layoutX="24.0" layoutY="321.0" prefHeight="32.0" prefWidth="111.0" text=" Designation" textFill="#022d30fa" textOverrun="WORD_ELLIPSIS">
+         <font>
+            <Font name="Berlin Sans FB" size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tx_code" layoutX="69.0" layoutY="221.0" prefHeight="25.0" prefWidth="100.0" />
+      <TextField fx:id="tx_cc" layoutX="317.0" layoutY="221.0" prefHeight="25.0" prefWidth="68.0" />
+      <TextField fx:id="tx_qu" layoutX="112.0" layoutY="487.0" prefHeight="25.0" prefWidth="78.0" />
+      <TextField fx:id="tx_pr" layoutX="455.0" layoutY="487.0" prefHeight="25.0" prefWidth="111.0" />
+      <Label fx:id="lb_date1" alignment="CENTER" layoutX="566.0" layoutY="217.0" prefHeight="32.0" prefWidth="100.0" />
+      <TextArea fx:id="tx_dg" layoutX="67.0" layoutY="358.0" prefHeight="60.0" prefWidth="348.0" />
+       <Button fx:id="bt_annule" layoutX="185.0" layoutY="559.0" mnemonicParsing="false" onAction="#efface" prefHeight="25.0" prefWidth="100.0" style="-fx-background-color: #190000; -fx-background-radius: 20px;" text="Annuler" textFill="#d6c9c9">
+         <effect>
+            <DropShadow height="9.14" radius="1.7850000000000001" width="0.0" />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="bt_connect" layoutX="420.0" layoutY="560.0" mnemonicParsing="false" onAction="#ajouteNewClient" prefHeight="25.0" prefWidth="100.0" style="-fx-background-color: #190000; -fx-background-radius: 20px;" text="Ajouter" textFill="#e8e5e5">
+         <effect>
+            <DropShadow height="9.14" radius="1.7850000000000001" width="0.0" />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="bt_ok" layoutX="420.0" layoutY="560.0" mnemonicParsing="false" onAction="#ok" prefHeight="25.0" prefWidth="100.0" style="-fx-background-color: #190000; -fx-background-radius: 20px;" text="OK" textFill="#e8e5e5" visible="false">
+         <effect>
+            <DropShadow height="9.14" radius="1.7850000000000001" width="0.0" />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <ImageView fx:id="iv_code" fitHeight="18.0" fitWidth="22.0" layoutX="174.0" layoutY="224.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Image_Pro/login/sign-delete-icon.png" />
+         </image></ImageView>
+      <ImageView fx:id="lv_cc" fitHeight="18.0" fitWidth="22.0" layoutX="385.0" layoutY="226.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Image_Pro/login/sign-delete-icon.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="lv_qu" fitHeight="18.0" fitWidth="22.0" layoutX="183.0" layoutY="490.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Image_Pro/login/sign-delete-icon.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="lv_pr" fitHeight="18.0" fitWidth="22.0" layoutX="559.0" layoutY="489.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Image_Pro/login/sign-delete-icon.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="lb_info" alignment="CENTER" layoutX="178.0" layoutY="191.0" prefHeight="17.0" prefWidth="295.0" text="veulliez a remplir les differents champs ..." textFill="#eb0707" />
+      </children>
+	<!-- TODO Add Nodes -->
+</AnchorPane>

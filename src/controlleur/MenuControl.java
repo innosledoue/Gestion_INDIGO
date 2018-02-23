@@ -116,7 +116,7 @@ public class MenuControl implements Initializable {
 	@FXML
 	public void clientApp() throws Exception {
 		
-	 stage=new Stage();
+	     stage=new Stage();
          stage.setTitle("SARL INDIGO");
         
             // Load root layout from fxml file.
@@ -130,20 +130,23 @@ public class MenuControl implements Initializable {
             Iclient_MenuControl controller = loader.getController();
             controller.setControl(this);
             
+            
             //ouverture de la fenetre Iclient_Menu et fermeture de celle ci
-            stage.show(); 
             
             try{
             	exit=main.getStage();
-            	 exit.close();
-            	}
-    		catch(NullPointerException e) {
-    		exit=main1.getstage7();	
-    		 exit.close();
+            	stage.show(); 
+            	exit.close();}
+    		catch(NullPointerException e ) {
+    			exit=main1.getstage7();
+    			stage.show(); 
+    			exit.close();
+    		}
+            
     		}
      
         
-	}
+	
 	@FXML
 	public void commandeApp() throws Exception {
 		Stage exit=main.getStage();

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="600.0" prefWidth="780.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.141">
+   <children>
+      <ImageView fitHeight="607.0" fitWidth="219.0" layoutX="-1.0" layoutY="-2.0" opacity="0.67" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Image_Pro/login/25.jpg" />
+         </image>
+      </ImageView>
+      <Button fx:id="bt_mod" layoutX="55.0" layoutY="82.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="110.0" text="Modifier">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="bt_suppr" layoutX="56.0" layoutY="178.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="110.0" text="Supprimer">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="bt_aimp" layoutX="60.0" layoutY="270.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="130.0" text="Aperçu Avant Impression" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="bt_imp" layoutX="61.0" layoutY="370.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="110.0" text="Impression">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="bt_exp" layoutX="59.0" layoutY="450.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="110.0" text="Exporter">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="bt_menu" layoutX="59.0" layoutY="526.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="110.0" text="Accueil">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <ImageView fitHeight="30.0" fitWidth="34.0" layoutX="51.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Image_Pro/login/images-4.jpeg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="34.0" fitWidth="37.0" layoutX="43.0" layoutY="176.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Image_Pro/login/images-3.jpeg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="63.0" fitWidth="51.0" layoutX="26.0" layoutY="268.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Image_Pro/crub/Actions-document-preview-icon.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="34.0" fitWidth="37.0" layoutX="44.0" layoutY="368.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Image_Pro/crub/Les-communicateurs-icon-impression-impression-varie.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="34.0" fitWidth="37.0" layoutX="51.0" layoutY="448.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Image_Pro/crub/export.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="41.0" fitWidth="45.0" layoutX="34.0" layoutY="516.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Image_Pro/login/d-blue-home-icon-white-background-30102619-1.jpg" />
+         </image>
+      </ImageView>
+      <TableView fx:id="table" fixedCellSize="3.0" layoutX="218.0" layoutY="239.0" prefHeight="164.0" prefWidth="561.0">
+         <columns>
+            <TableColumn fx:id="tcode" minWidth="1.0" prefWidth="87.0" text="Code" />
+            <TableColumn fx:id="tcodeCat" prefWidth="132.0" text="Client" />
+            <TableColumn fx:id="tdesig" prefWidth="93.0" text="Mode de Paiement" />
+            <TableColumn fx:id="tquan" prefWidth="185.0" text="Total TTC" />
+            <TableColumn fx:id="tprixU" prefWidth="42.0" text="Date" />
+         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <Label text="Label" />
+      <Label layoutX="226.0" layoutY="536.0" prefHeight="25.0" prefWidth="150.0" text="Total des Commandes" />
+      <TextField fx:id="tx_code111" layoutX="223.0" layoutY="566.0" prefHeight="25.0" prefWidth="150.0" promptText="Montant Total" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7862801d" height="151.0" layoutX="213.0" layoutY="-4.0" stroke="TRANSPARENT" width="571.0" />
+      <Label layoutX="363.0" layoutY="46.0" prefHeight="51.0" prefWidth="339.0" text="Gestionnaire Commandes">
+         <font>
+            <Font name="System Bold" size="27.0" />
+         </font>
+      </Label>
+      <Label layoutX="394.0" layoutY="86.0" prefHeight="23.0" prefWidth="314.0" text="Modification Suppression Consultation  et Impression">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="223.0" layoutY="170.0" prefHeight="25.0" prefWidth="93.0" text="Rechercher par">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="cb" layoutX="321.0" layoutY="170.0" prefHeight="30.0" prefWidth="120.0" />
+      <TextField fx:id="tx_1" layoutX="526.0" layoutY="168.0" prefHeight="35.0" prefWidth="176.0" />
+      <Button id="bt_rech" fx:id="bt_rech" layoutX="706.0" layoutY="158.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="58.0" styleClass="bt_rech" stylesheets="@../../Style/style.css">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <DropShadow height="0.0" radius="1.0425" width="6.17" />
+         </effect>
+      </Button>
+      <ImageView fitHeight="112.0" fitWidth="130.0" layoutX="249.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../Image_Pro/menu/12.jpg" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

@@ -1,8 +1,5 @@
 package controlleur;
 
-import controlleur.donnee.*;
-
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -12,67 +9,63 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+import controlleur.donnee.Articles;
+import controlleur.donnee.Client;
+import controlleur.donnee.ConnBD;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
-
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableColumn.SortType;
 import javafx.scene.control.TableRow;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TableColumn.SortType;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
-public class Iclient_MenuControl  implements Initializable {  
+public class ArticleMenu implements Initializable{
+
+	
+	private MenuControl main;
+	private Stage stage,stage1,stage2,stage3,stage4,stage5,stage6,stage7;
+	private ObservableList<Articles>base;
+
 	
 	private ConnBD donne;
 	private Connection com;
-	private ObservableList<Client> base;
-	
-	
-	private Stage stage,stage1,stage2,stage3,stage4,stage5,stage6,stage7;
-	private MenuControl main;
-	private Client person;
-	
-	
-	
 	
 	@FXML
-	private TableView<Client>table;
+	private TableView<Articles>table;
 	@FXML
-	private TableColumn<Client,String> table_code;
+	private TableColumn<Articles,String> tcode;
 	@FXML
-	private TableColumn<Client,String> table_nom;
+	private TableColumn<Articles,String> tcodeCat;
 	@FXML
-	private TableColumn<Client,String> table_prenom;
+	private TableColumn<Articles,String> tdesig;
 	@FXML
-	private TableColumn<Client,String> table_ville;
+	private TableColumn<Articles,Integer> tquan;
 	@FXML
-	private TableColumn<Client,Integer> table_carte;
+	private TableColumn<Articles,Double> tprix;
+	
 	@FXML
-	private TableColumn<Client,String> table_date;
-	@FXML
-	private ComboBox<String> bt_combo;
-	@FXML
-	private TextField txt;
-	@FXML
-	private Button bt_NC;
+	private Button bt_new;
+	private Articles person;
+	
+	
 
-
-
-	
-	
-	public Iclient_MenuControl() {
+// Constructeur	
+	public ArticleMenu() {
 		
 	}
+	
+
 	public Stage getStage() {
 		return this.stage;
 		}
@@ -104,16 +97,16 @@ public class Iclient_MenuControl  implements Initializable {
 		this.main=ter;
 		
 	}
-	public Client getClient() {
+	public Articles getArticles() {
 		return  this.person;
 	}
 	
 	
 	
-	public void setTable(Client eer) {
+	public void setTable(Articles eer) {
 		this.table.getItems().add(eer);
 	}
-	public TableView<Client> getTable() {
+	public TableView<Articles> getTable() {
 		return this.table;
 	}
 	
@@ -128,13 +121,13 @@ public class Iclient_MenuControl  implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 	      //TODO Auto-generated method stub
 		
-		base=FXCollections.observableArrayList();
-		donne=new ConnBD();
+		base = FXCollections.observableArrayList();
+		 donne = new ConnBD();
 		com=donne.connect();
 		try {
-			ResultSet sx=com.createStatement().executeQuery("SELECT * FROM clients ORDER BY date DESC;");
+			ResultSet sx=com.createStatement().executeQuery("SELECT * FROM articles ORDER BY date DESC;");
 			while(sx.next()) {
-				base.add(new Client(sx.getString("code"),sx.getString("nom"),sx.getString("prenom"),sx.getString("ville"),sx.getString("code_postal"),sx.getString("addresse"),sx.getString("mobile"),sx.getString("email"),sx.getString("remarque"),sx.getString("tel_fixe"),sx.getInt("carte_fidele"),DateText(sx.getDate("date"))));
+				base.add(new Articles(sx.getString("code"),sx.getString("code_categorie"),sx.getString("designation"),sx.getInt("quantite"),sx.getDouble("prix_unitaire"),DateText(sx.getDate("date"))));
 			}
 			
 		} catch (SQLException e) {
@@ -145,13 +138,12 @@ public class Iclient_MenuControl  implements Initializable {
 		
 		//demarche servant a initialise une tableview avec les donne lue d'une base de donne
 			// initialiser la table client avec ses differrentes column
-		table_code.setCellValueFactory(new PropertyValueFactory<Client,String>("code"));
-		table_carte.setCellValueFactory(cellData-> cellData.getValue().getPropertyCarte().asObject());
-		//table_carte.setCellValueFactory(new PropertyValueFactory<Client,Integer>("carte_fidele"));
-		table_nom.setCellValueFactory(new PropertyValueFactory<Client,String>("nom"));
-		table_prenom.setCellValueFactory(new PropertyValueFactory<Client,String>("prenom"));
-		table_ville.setCellValueFactory(new PropertyValueFactory<Client,String>("ville"));
-		table_date.setCellValueFactory(new PropertyValueFactory<Client,String>("date"));
+		tcode.setCellValueFactory(new PropertyValueFactory<Articles,String>("code"));
+		tcodeCat.setCellValueFactory(new PropertyValueFactory<Articles,String>("code_categorie"));
+		tquan.setCellValueFactory(new PropertyValueFactory<Articles,Integer>("quantite"));
+		tdesig.setCellValueFactory(new PropertyValueFactory<Articles,String>("designation"));
+		tprix.setCellValueFactory(new PropertyValueFactory<Articles,Double>("prix_unitaire"));
+	
 		table.setItems(null);
 		table.setItems(base);
 		
@@ -185,7 +177,7 @@ public class Iclient_MenuControl  implements Initializable {
 			
 	});*/
 		table.setRowFactory( tv -> {
-			   TableRow<Client> row = new TableRow<>();
+			   TableRow<Articles> row = new TableRow<>();
 			   row.setOnMouseClicked(e -> {
 			      if (e.getClickCount() == 2 && (!row.isEmpty()) ) {
 			    	
@@ -204,7 +196,7 @@ public class Iclient_MenuControl  implements Initializable {
 			   return row;
 			});
 		
-			bt_NC.setOnMouseClicked(e-> {
+			bt_new.setOnMouseClicked(e-> {
 					if(e.getClickCount()>=2) {
 						e.consume();
 				}
@@ -231,10 +223,10 @@ public class Iclient_MenuControl  implements Initializable {
 			}
 		// TODO Auto-generated method stub
 		
-	}*/
+	}
 	public void rio(String ert) {
 		if(ert=="CODE") {
-			table_code.setSortable(true);
+			tcode.setSortable(true);
 			table_code.setSortType(SortType.ASCENDING);
 			
 		}
@@ -251,23 +243,23 @@ public class Iclient_MenuControl  implements Initializable {
 			table_date.setSortType(SortType.ASCENDING);
 		}
 	}
-	
+	*/
 
-	public void voirInfo( Client homme) throws IOException, SQLException, Exception {
-		if(homme!=null) {
+	public void voirInfo( Articles produit) throws IOException, SQLException, Exception {
+		if(produit!=null) {
 			 try {
 				  Stage exit=main.getStage();  
 				 
 				 // Create the dialog Stage.
 			        stage = new Stage();
-			        stage.setTitle("Edit Person");
+			        stage.setTitle("Edit Articles");
 			        
 			        // Load the fxml file and create a new stage for the popup dialog.
 			        FXMLLoader loader = new FXMLLoader();
-			        loader.setLocation(Iclient_MenuControl.class.getResource("vue/IclientAjout.fxml"));
+			        loader.setLocation(Iclient_MenuControl.class.getResource("vue/IarticleAjout.fxml"));
 			        AnchorPane page = (AnchorPane) loader.load();
 			        	
-			        IclientAjoutControl controller = loader.getController();
+			        IarticleAjoutControl controller = loader.getController();
 			        controller.setcontrol1(this);
 			        controller.setClient(homme);
 			        
@@ -295,25 +287,25 @@ public class Iclient_MenuControl  implements Initializable {
 	}
 	
 	@FXML
-	public void clientAjout() throws Exception {
+	public void articleAjout() throws Exception {
 		try {
 			 Stage exit=main.getStage();
 		        // Load the fxml file and create a new stage for the popup dialog.
 		        FXMLLoader loader = new FXMLLoader();
-		        loader.setLocation(Iclient_MenuControl.class.getResource("vue/IclientAjout.fxml"));
+		        loader.setLocation(Iclient_MenuControl.class.getResource("vue/IarticleAjout.fxml"));
 		        AnchorPane page = (AnchorPane) loader.load();
 		        	
 		        
 		        // Create the dialog Stage.
 		        stage1  = new Stage();
-		        stage1.setTitle("Edit Person");
+		        stage1.setTitle("Edit Articles");
 		        stage1.initModality(Modality.WINDOW_MODAL);
 		        stage1.initOwner(exit);
 		        Scene scene = new Scene(page);
 		        stage1.setScene(scene);
 
 		        // Set the person into the controller.
-		        IclientAjoutControl controller = loader.getController();
+		        IarticleAjoutControl controller = loader.getController();
 		        controller.setcontrol1(this);
 		        controller.setClient(person);
 
@@ -330,13 +322,13 @@ public class Iclient_MenuControl  implements Initializable {
 	
           
      @FXML
-	public void clientRech() throws Exception {
+	public void articleRech() throws Exception {
 		Stage exit=main.getStage();
 		stage2 = new Stage();
         stage2.setTitle("SARL INDIGO");
         
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(Iclient_MenuControl.class.getResource("vue/Modifi_Clients.fxml"));
+        loader.setLocation(Iclient_MenuControl.class.getResource("vue/articleModifi.fxml"));
         AnchorPane page = (AnchorPane) loader.load();
         
         Scene scene = new Scene(page);
@@ -345,7 +337,7 @@ public class Iclient_MenuControl  implements Initializable {
         stage2.initModality(Modality.WINDOW_MODAL);
         stage2.initOwner(exit);
         //permet de connecter les controleurs
-        Modifi_ClientsControl controller = loader.getController();
+        articleModifiControl controller = loader.getController();
          controller.setControl1(this);
          
        stage2.showAndWait();
@@ -359,7 +351,7 @@ public class Iclient_MenuControl  implements Initializable {
  		stage3 = new Stage();
          stage3.setTitle("SARL INDIGO");
          FXMLLoader loader = new FXMLLoader();
-         loader.setLocation(Iclient_MenuControl.class.getResource("vue/Modifi_Clients.fxml"));
+         loader.setLocation(Iclient_MenuControl.class.getResource("vue/IarticlesModifi.fxml"));
          AnchorPane page = (AnchorPane) loader.load();
          Scene scene = new Scene(page);
          stage3.setScene(scene);
@@ -385,7 +377,7 @@ public class Iclient_MenuControl  implements Initializable {
 		stage4 = new Stage();
         stage4.setTitle("SARL INDIGO");
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(Iclient_MenuControl.class.getResource("vue/Modifi_Clients.fxml"));
+        loader.setLocation(Iclient_MenuControl.class.getResource("vue/IarticlesModifi.fxml"));
         AnchorPane page = (AnchorPane) loader.load();
         Scene scene = new Scene(page);
         Modifi_ClientsControl control=loader.getController();
@@ -398,13 +390,13 @@ public class Iclient_MenuControl  implements Initializable {
         stage4.showAndWait();
 	}
 		@FXML
-	public void clientApercuImpr() throws IOException {
+	public void Apercu_article() throws IOException {
 			Stage exit=main.getStage();
 
 			stage5 = new Stage();
 	        stage5.setTitle("SARL INDIGO");
 	        FXMLLoader loader = new FXMLLoader();
-	        loader.setLocation(Iclient_MenuControl.class.getResource("vue/Modifi_Clients.fxml"));
+	        loader.setLocation(Iclient_MenuControl.class.getResource("vue/IarticleImpr.fxml"));
 	        AnchorPane page = (AnchorPane) loader.load();
 	        Scene scene = new Scene(page);
 	        Modifi_ClientsControl control=loader.getController();
@@ -418,13 +410,13 @@ public class Iclient_MenuControl  implements Initializable {
           
 	}
 		@FXML
-		public void clientImpr() throws IOException {
+		public void articleImpr() throws IOException {
 				Stage exit=main.getStage();
 
 				stage6 = new Stage();
 		        stage6.setTitle("SARL INDIGO");
 		        FXMLLoader loader = new FXMLLoader();
-		        loader.setLocation(Iclient_MenuControl.class.getResource("vue/Modifi_Clients.fxml"));
+		        loader.setLocation(Iclient_MenuControl.class.getResource("vue/IarticleImpr.fxml"));
 		        AnchorPane page = (AnchorPane) loader.load();
 		        Scene scene = new Scene(page);
 		        Modifi_ClientsControl control=loader.getController();
@@ -449,7 +441,7 @@ public class Iclient_MenuControl  implements Initializable {
         loader.setLocation(Iclient_MenuControl.class.getResource("vue/MenuApp.fxml"));
         AnchorPane page = (AnchorPane) loader.load();
         MenuControl controller = loader.getController();
-		controller.setControl(this);
+		controller.setControl1(this);
         		
         Scene scene = new Scene(page);
         stage7.setScene(scene);
@@ -473,49 +465,12 @@ public class Iclient_MenuControl  implements Initializable {
 		return rt.intValue();
 	}
 	
-	
-	
-		
-	//ici on utlise la fonction lammda de java 8 mais le soucis est que la Integer generais des erreur a voir
-			//table_nom.setCellValueFactory(cellData -> cellData.getValue().getPropertyNom());
-			//table_prenom.setCellValueFactory(cellData -> cellData.getValue().getPropertyPrenom());
-			//table_carte.setCellValueFactory(cellData -> cellData.getValue().getCarte());
-			//table_ville.setCellValueFactory(cellData -> cellData.getValue().getPropertyVille());
-			//table_date.setCellValueFactory(cellData -> cellData.getValue().getPropertyDate());
 
-	// loader.setLocation(IconnectControl.class.getResource("vue/IclientPresent.fxml"));
-    // AnchorPane sub=(AnchorPane) loader.load();
-     // AnchorPane.setTopAnchor(sub,0.0);
-      //AnchorPane.setTopAnchor(button, 10.0); 
-     // AnchorPane.setLeftAnchor(button, 10.0); 
-     // AnchorPane.setRightAnchor(button, 65.0);
-      // Show the scene containing the root layout.
 	
-	//System.out.println(base.get(0).getCode()+"  "+base.get(0).getNom()+"  "+base.get(0).getCarteF());
-	//System.out.println(base.get(1).getCode()+"  "+base.get(1).getNom()+"  "+base.get(1).getCarteF());
-	
-	 // etablie une connexion  de IconnectControl(le controleur) avec le mainApp.
-    //MenuControl controller = loader.getController();
-    //controller.setControl(this);
-    //choix=controller.getboolean();
-    //stage.initModality(Modality.WINDOW_MODAL);
-//stage.initOwner(((Node) event.getSource()).getScene().getWindow());
-//stage.show();
-	
-	/*table.setOnMouseClicked(new EventHandler<MouseEvent>() {
-	   @Override 
-	   public void handle(MouseEvent e) {
-	      if (e.isPrimaryButtonDown() && e.getClickCount() == 2) {
-	         txt.setText(table.getSelectionModel().getSelectedItem().getCode());                   
-	      }
-	   }
-	});
-bt_combo.valueProperty().addListener(observable->  rio(bt_combo.getValue()));*/
 
-// reagir a tout changement fait sur la tableview
 	
-	//controller.setClient(person);
-    //stage.initModality(Modality.WINDOW_MODAL);
-    //stage.initOwner(((Node) event.getSource()).getScene().getWindow());
+	
+	
+	
 	
 }

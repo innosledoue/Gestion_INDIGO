@@ -159,6 +159,8 @@ public void setCode_postal(String ert) {
 public StringProperty getPropertyCode_postal() {
 	return code_postal;
 }
+
+
 /*public Integer getCarte() {
 return carte_fidele.get();}
 

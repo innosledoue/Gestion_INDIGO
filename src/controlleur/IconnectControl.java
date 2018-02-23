@@ -85,13 +85,16 @@ public class IconnectControl implements Initializable {
 				genre.add(new Personne(rs.getInt("idProfil"),rs.getString("speudo"),rs.getString("mot_passe")));	
 			}
 		
-			
+			rs.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.err.println("Probleme de  connexion a la base de donne");
 			rdbt_etat.setText("Error veuiller consulter votre adminstrateur");
+		}finally{
+			
 		}
+		
 		
 		
 		rdbt_etat.addEventHandler(KeyEvent.ANY, new EventHandler<KeyEvent>() {
