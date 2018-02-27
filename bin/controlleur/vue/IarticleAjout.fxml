@@ -12,7 +12,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="621.0" prefWidth="648.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="621.0" prefWidth="648.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlleur.IarticleAjoutControl">
  <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#3e19c200" focusTraversable="true" height="428.0" layoutX="2.0" layoutY="191.0" stroke="#000000f1" strokeLineCap="ROUND" width="662.0">
          <effect>
@@ -73,9 +73,8 @@
       <TextField fx:id="tx_cc" layoutX="317.0" layoutY="221.0" prefHeight="25.0" prefWidth="68.0" />
       <TextField fx:id="tx_qu" layoutX="112.0" layoutY="487.0" prefHeight="25.0" prefWidth="78.0" />
       <TextField fx:id="tx_pr" layoutX="455.0" layoutY="487.0" prefHeight="25.0" prefWidth="111.0" />
-      <Label fx:id="lb_date1" alignment="CENTER" layoutX="566.0" layoutY="217.0" prefHeight="32.0" prefWidth="100.0" />
       <TextArea fx:id="tx_dg" layoutX="67.0" layoutY="358.0" prefHeight="60.0" prefWidth="348.0" />
-       <Button fx:id="bt_annule" layoutX="185.0" layoutY="559.0" mnemonicParsing="false" onAction="#efface" prefHeight="25.0" prefWidth="100.0" style="-fx-background-color: #190000; -fx-background-radius: 20px;" text="Annuler" textFill="#d6c9c9">
+       <Button fx:id="bt_annule" layoutX="185.0" layoutY="559.0" mnemonicParsing="false" onAction="#efface" prefHeight="25.0" prefWidth="100.0" style="-fx-background-color: #190000; -fx-background-radius: 20px;" text="Annuler" textFill="#d6c9c9" visible="false">
          <effect>
             <DropShadow height="9.14" radius="1.7850000000000001" width="0.0" />
          </effect>
@@ -83,7 +82,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="bt_connect" layoutX="420.0" layoutY="560.0" mnemonicParsing="false" onAction="#ajouteNewClient" prefHeight="25.0" prefWidth="100.0" style="-fx-background-color: #190000; -fx-background-radius: 20px;" text="Ajouter" textFill="#e8e5e5">
+      <Button fx:id="bt_connect" layoutX="420.0" layoutY="560.0" mnemonicParsing="false" onAction="#ajouteNewArticle" prefHeight="25.0" prefWidth="100.0" style="-fx-background-color: #190000; -fx-background-radius: 20px;" text="Ajouter" textFill="#e8e5e5" visible="false">
          <effect>
             <DropShadow height="9.14" radius="1.7850000000000001" width="0.0" />
          </effect>
@@ -108,17 +107,18 @@
             <Image url="@../../../Image_Pro/login/sign-delete-icon.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="lv_qu" fitHeight="18.0" fitWidth="22.0" layoutX="183.0" layoutY="490.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="lv_qu" fitHeight="18.0" fitWidth="22.0" layoutX="192.0" layoutY="490.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../Image_Pro/login/sign-delete-icon.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="lv_pr" fitHeight="18.0" fitWidth="22.0" layoutX="559.0" layoutY="489.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="lv_pr" fitHeight="18.0" fitWidth="22.0" layoutX="567.0" layoutY="489.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../Image_Pro/login/sign-delete-icon.png" />
          </image>
       </ImageView>
       <Label fx:id="lb_info" alignment="CENTER" layoutX="178.0" layoutY="191.0" prefHeight="17.0" prefWidth="295.0" text="veulliez a remplir les differents champs ..." textFill="#eb0707" />
+      <TextField fx:id="tx_date" layoutX="562.0" layoutY="223.0" prefHeight="25.0" prefWidth="94.0" />
       </children>
 	<!-- TODO Add Nodes -->
 </AnchorPane>

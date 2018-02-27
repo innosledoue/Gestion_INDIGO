@@ -13,7 +13,7 @@ public class Articles {
 	private  StringProperty designation;
 	private  DoubleProperty prix_unitaire;
 	private  IntegerProperty quantite ;
-	private   StringProperty date;
+	private  StringProperty date;
 	
 	
 	
@@ -22,10 +22,10 @@ public class Articles {
 	}
 	 
 	
-	public Articles(String code,String C,String D,Integer a,Double prix,String date) {
+	public Articles(String code,String cc,String dg,Integer a,Double prix,String date) {
 		this.code=new SimpleStringProperty(code);
-		this.code_categorie=new SimpleStringProperty(C);
-		this.designation=new SimpleStringProperty(D);
+		this.code_categorie=new SimpleStringProperty(cc);
+		this.designation=new SimpleStringProperty(dg);
 		this.date=new SimpleStringProperty(date);
 		this.quantite=new SimpleIntegerProperty(a);
 		this.prix_unitaire=new SimpleDoubleProperty(prix);
@@ -34,8 +34,8 @@ public class Articles {
 	public String getCode() {
 		return code.get();
 	}
-	public void setCode(StringProperty code) {
-		this.code = code;
+	public void setCode(String code) {
+		this.code.set(code);
 	}
 	public StringProperty getpropertyCode() {
 		return code;
@@ -44,57 +44,54 @@ public class Articles {
 	public String CodeCategorie() {
 		return code_categorie.get();
 	}
-	public StringProperty getCode_categorie() {
+	
+	public StringProperty getCodecategorieProperty() {
 		return code_categorie;
 	}
 	
-	public void setCode_categorie(StringProperty code_categorie) {
-		this.code_categorie = code_categorie;
+	public void setCodecategorie(String code_categorie) {
+		this.code_categorie.set(code_categorie);
 	}
 	
 	
-	public DoubleProperty getpropertyPrix() {
-		return prix_unitaire;
-	}
+	
 	public Double getPrix_unitaire() {
 		return prix_unitaire.get();
 	}
-	public void setPrix_unitaire(DoubleProperty prix_unitaire) {
-		this.prix_unitaire = prix_unitaire;
+	public void setPrix_unitaire(Double prix_unitaire) {
+		this.prix_unitaire.set(prix_unitaire);
 	}
 	
-	public IntegerProperty getPropertyQuantite() {
-		return quantite;
-	}
+	
 	
 	public Integer getQuantite() {
 		return quantite.get();
 	}
-	public void setQuantite(IntegerProperty quantite) {
-		this.quantite = quantite;
+	public void setQuantite(Integer quantite) {
+		this.quantite.set(quantite);
 	}
 	
 	public String getDate() {
 		return date.get();
 	}
-	public StringProperty getDateL() {
+	public StringProperty getDateProperty() {
 		return date;
 	}
-	public void setDate(StringProperty date) {
-		this.date = date;
+	public void setDate(String date) {
+		this.date.set(date);
 	}
 
 
 	public String getDesignation() {
 		return designation.get();
 	}
-	public StringProperty getDesignatione() {
+	public StringProperty getDesignationProperty() {
 		return designation;
 	}
 
 
-	public void setDesignatione(StringProperty designatione) {
-		this.designation = designatione;
+	public void setDesignation(String designation) {
+		this.designation.set(designation);
 	}
 
 }

@@ -5,7 +5,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 
@@ -14,6 +14,7 @@ import controlleur.donnee.*;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -21,6 +22,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -31,8 +33,10 @@ public class IclientAjoutControl implements Initializable {
 	
 	private Iclient_MenuControl lien;
 	private Client own;
-	private Stage stage,stage1;
-	Date date;
+	private Stage refdeAjout,refdeInfo;
+
+	private ArrayList<String>list=new ArrayList<String>();
+	
 	
 	//les controlleur utiliser par le controllleur
 	
@@ -73,7 +77,7 @@ public class IclientAjoutControl implements Initializable {
 	@FXML
 	private Tooltip lae;
 	@FXML
-	private Label lb_info,lb_e,lb_sig;
+	private Label lb_info,lb_e,lb_sig,lb_error;
 	@FXML
 	private Button bt_ok,bt_annule,bt_connect;
 	
@@ -85,10 +89,24 @@ public class IclientAjoutControl implements Initializable {
 		
 	}
 	
-	
+	public void setCodeList(ArrayList<String> ert) {
+		this.list=ert;
+	}
 	
 	public void setcontrol1(Iclient_MenuControl ert) {
 		this.lien=ert;
+	}
+	public void setAjout(Stage ert) {
+		try{
+			this.refdeAjout=ert;
+			tx_date.setText(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+			lb_sig.setText("Ajout Nouvel CLIENT");
+		}catch(Exception er) {
+			
+		}
+	}
+	public void setInfo(Stage ert) {
+		this.refdeInfo=ert;
 	}
 	
 	public void setClient(Client rte) {
@@ -149,8 +167,7 @@ try {
 
 	
 }catch(Exception e) {
-	tx_date.setText(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-	lb_sig.setText("Ajout Nouvel CLIENT");
+	
 }
 	}
 
@@ -166,7 +183,9 @@ try {
 		iv_mobile.setVisible(false);
 		lb_info.setVisible(false);
 		tx_code.textProperty().addListener(observable -> length());
+		tx_code.textProperty().addListener(observable -> verifie());
 		lb_sig.setText("");
+		
 		
 		bt_ok.setOnMouseClicked(e-> {
 			if(e.getClickCount()>=2) {
@@ -202,16 +221,29 @@ try {
 		try{
 			if(tx_code.getText().length()>6) {
 				String t=tx_code.getText().substring(0,6);
-				tx_code.setText(t);}
-			}catch(IllegalArgumentException e) {
+				tx_code.setText(t);
+			}
+			}catch(IllegalArgumentException e) {}
+		
+	}
+	
+	public void verifie() {
+		try {
+		
+		if(list.contains(tx_code.getText())) {
+			iv_code.setVisible(true);
+			lb_error.setVisible(true);
+		}
+		else {
+				iv_code.setVisible(false);
+					lb_error.setVisible(false);
+		}}catch(Exception r) {
 			
 		}
 	}
 	
 	@FXML
 	public void ajouteNewClient()  {
-	//	table1=lien.getTable();
-		stage1=lien.getStage1();
 		
 		if(vide()) {
 			
@@ -227,7 +259,13 @@ try {
 			}
 			
 			lien.initialize(null, null);
-			stage1.close();
+			Alert alert2 = new Alert(AlertType.INFORMATION);
+	        alert2.initOwner(refdeAjout);
+	        alert2.setTitle("  Notification Systeme  ");
+	        alert2.setHeaderText("");
+	        alert2.setContentText("Enregistrement effectuez avec succès");
+	        alert2.showAndWait();
+			refdeAjout.close();
 			
 		}else {
 				if(tx_code.getText().isEmpty()) {
@@ -254,13 +292,11 @@ try {
 	
 	@FXML
 	public void ok() {
-		stage=lien.getStage();
-		stage.close();
+		refdeInfo.close();
 	}
 	@FXML
 	public void efface() {
-		stage1=lien.getStage1();
-		stage1.close();
+		refdeAjout.close();
 	}
 	@FXML
 	public  void senscode() {
@@ -299,7 +335,7 @@ public boolean sensCarte(int a) {
 }
 public boolean vide() {
 	boolean choix=false;
-	if(!tx_code.getText().isEmpty() && !tx_nom.getText().isEmpty() && !tx_prenom.getText().isEmpty() && !tx_mobile.getText().isEmpty() && !tx_ville.getText().isEmpty() ) {
+	if(!tx_code.getText().isEmpty() && !tx_nom.getText().isEmpty() && !tx_prenom.getText().isEmpty() && !tx_mobile.getText().isEmpty() && !tx_ville.getText().isEmpty() && !lb_error.isVisible() ) {
 		choix=true;
 	}
 	

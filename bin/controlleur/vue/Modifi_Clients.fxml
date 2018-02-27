@@ -71,15 +71,15 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></CheckBox>
-      <TextField fx:id="code" editable="false" layoutX="98.0" layoutY="308.0" prefHeight="25.0" prefWidth="160.0" visible="false" />
-      <TextField fx:id="nom" editable="false" layoutX="96.0" layoutY="358.0" prefHeight="25.0" prefWidth="233.0" visible="false" />
-      <TextField fx:id="adresse" editable="false" layoutX="95.0" layoutY="418.0" prefHeight="25.0" prefWidth="233.0" visible="false" />
-      <TextField fx:id="codeP" editable="false" layoutX="97.0" layoutY="465.0" prefHeight="25.0" prefWidth="233.0" visible="false" />
-      <TextField fx:id="tel" editable="false" layoutX="97.0" layoutY="513.0" prefHeight="25.0" prefWidth="233.0" visible="false" />
-      <TextField fx:id="email" editable="false" layoutX="385.0" layoutY="465.0" prefHeight="25.0" prefWidth="200.0" visible="false" />
-      <TextField fx:id="ville" editable="false" layoutX="385.0" layoutY="418.0" prefHeight="25.0" prefWidth="200.0" visible="false" />
-      <TextField fx:id="mobile" editable="false" layoutX="390.0" layoutY="513.0" prefHeight="25.0" prefWidth="200.0" visible="false" />
-      <TextArea fx:id="texte" editable="false" layoutX="30.0" layoutY="572.0" prefHeight="89.0" prefWidth="400.0" visible="false" />
+      <TextField fx:id="code" layoutX="98.0" layoutY="308.0" prefHeight="25.0" prefWidth="160.0" visible="false" />
+      <TextField fx:id="nom" layoutX="96.0" layoutY="358.0" prefHeight="25.0" prefWidth="233.0" visible="false" />
+      <TextField fx:id="adresse" layoutX="95.0" layoutY="418.0" prefHeight="25.0" prefWidth="233.0" visible="false" />
+      <TextField fx:id="codeP" layoutX="97.0" layoutY="465.0" prefHeight="25.0" prefWidth="233.0" visible="false" />
+      <TextField fx:id="tel" layoutX="97.0" layoutY="513.0" prefHeight="25.0" prefWidth="233.0" visible="false" />
+      <TextField fx:id="email" layoutX="385.0" layoutY="465.0" prefHeight="25.0" prefWidth="200.0" visible="false" />
+      <TextField fx:id="ville" layoutX="385.0" layoutY="418.0" prefHeight="25.0" prefWidth="200.0" visible="false" />
+      <TextField fx:id="mobile" layoutX="390.0" layoutY="513.0" prefHeight="25.0" prefWidth="200.0" visible="false" />
+      <TextArea fx:id="texte" layoutX="30.0" layoutY="572.0" prefHeight="89.0" prefWidth="400.0" visible="false" />
       <Label fx:id="lb_remarque" layoutX="22.0" layoutY="547.0" prefHeight="25.0" prefWidth="73.0" text="Remarque" visible="false">
          <font>
             <Font size="14.0" />
@@ -99,8 +99,8 @@
             <Image url="@../../../Image_Pro/menu/2.png" />
          </image>
       </ImageView>
-      <TextField fx:id="prenom" editable="false" layoutX="388.0" layoutY="358.0" prefHeight="25.0" prefWidth="200.0" visible="false" />
-      <TextField fx:id="date" editable="false" layoutX="381.0" layoutY="306.0" prefHeight="25.0" prefWidth="99.0" visible="false" />
+      <TextField fx:id="prenom" layoutX="388.0" layoutY="358.0" prefHeight="25.0" prefWidth="200.0" visible="false" />
+      <TextField fx:id="date" layoutX="381.0" layoutY="306.0" prefHeight="25.0" prefWidth="99.0" visible="false" />
       <Label layoutX="19.0" layoutY="121.0" prefHeight="26.0" prefWidth="121.0" text="Option Recherche" textFill="#000000bf">
          <font>
             <Font size="13.0" />
@@ -133,17 +133,17 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Button fx:id="bt_suppr" defaultButton="true" layoutX="520.0" layoutY="585.0" mnemonicParsing="false" onAction="#supprimer" prefHeight="31.0" prefWidth="79.0" style="-fx-background-radius: 10px;" text="Supprimer" textFill="#251010" textOverrun="CENTER_WORD_ELLIPSIS">
+      <Button fx:id="bt_suppr" defaultButton="true" layoutX="520.0" layoutY="585.0" mnemonicParsing="false" onAction="#supprimer" prefHeight="31.0" prefWidth="79.0" style="-fx-background-radius: 10px;" text="Supprimer" textFill="#251010" textOverrun="CENTER_WORD_ELLIPSIS" visible="false">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="bt_ajout" defaultButton="true" layoutX="520.0" layoutY="586.0" mnemonicParsing="false" onAction="#modifier" prefHeight="31.0" prefWidth="79.0" style="-fx-background-radius: 10px;" text="Ajouter">
+      <Button fx:id="bt_ajout" defaultButton="true" layoutX="520.0" layoutY="586.0" mnemonicParsing="false" onAction="#modifier" prefHeight="31.0" prefWidth="79.0" style="-fx-background-radius: 10px;" text="Ajouter" visible="false">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="bt_ok" defaultButton="true" layoutX="539.0" layoutY="582.0" mnemonicParsing="false" onAction="#OK" prefHeight="34.0" prefWidth="54.0" style="-fx-background-radius: 140px;" text="OK">
+      <Button fx:id="bt_ok" defaultButton="true" layoutX="539.0" layoutY="582.0" mnemonicParsing="false" onAction="#OK" prefHeight="34.0" prefWidth="54.0" style="-fx-background-radius: 140px;" text="OK" visible="false">
          <effect>
             <DropShadow color="#1e28d9a9" />
          </effect>

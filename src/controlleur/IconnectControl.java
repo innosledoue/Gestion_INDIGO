@@ -7,11 +7,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.ListIterator;
 import java.util.ResourceBundle;
 
@@ -25,6 +21,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -41,15 +39,17 @@ public class IconnectControl implements Initializable {
 	private ConnexionBD base;
 	Personne person,person1;
 	private  ArrayList<Personne> genre;
-	private mainApp main;
-	private Stage stage;
-	private Calendar date;
+	private Image img=new Image(getClass().getResourceAsStream("image.png"));
+	private Stage refdeConnect,refMenu,refdeMenuC;
+	
 	
 	//variable dont l'id est specifier dans le fichier fxml
 	@FXML
 	private Label msg,msg1,lb_r,lb_r1;
 	@FXML
 	private TextField user;
+	@FXML
+	private ImageView error,error1;
 	@FXML
 	private PasswordField pwd;
 	@FXML 
@@ -75,6 +75,8 @@ public class IconnectControl implements Initializable {
 		Connection col=base.connect();
 		rdbt_etat.setText("Connexion Locale etablit");
 		rdbt_etat.setSelected(true);
+		error.setVisible(false);
+		error1.setVisible(false);
 		
 	
 		
@@ -91,8 +93,6 @@ public class IconnectControl implements Initializable {
 			e.printStackTrace();
 			System.err.println("Probleme de  connexion a la base de donne");
 			rdbt_etat.setText("Error veuiller consulter votre adminstrateur");
-		}finally{
-			
 		}
 		
 		
@@ -129,19 +129,15 @@ public class IconnectControl implements Initializable {
 	
 	
 
-	public void setControl(mainApp ter) {
-		this.main=ter;
+	public void setConnect(Stage ter) {
+		this.refdeConnect=ter;
+	}
+	public void setConnect1(Stage ter) {
+		this.refdeMenuC=ter;
 	}
 	
-	@FXML
-	public void click() {
-		lb_r.setText(ch_r.selectedProperty().getValue().booleanValue()+"");
-		lb_r1.setText(ch_r.selectedProperty().getValue()+"");
-	}
+	
 	public void connect() throws IOException, SQLException{
-		
-		
-		Stage exit=main.getStage();
 		
 		if(pwd.getText().isEmpty()) { msg1.setText("Incorrect! champs vide");}
 		if(user.getText().isEmpty()) { msg.setText("Incorrect! champs vide");}
@@ -151,9 +147,9 @@ public class IconnectControl implements Initializable {
 						
 			if(verifie()==1) 
 				{
-					stage = new Stage();
-					stage.setTitle("SARL INDIGO");
-					stage.setFullScreen(false);
+					refMenu = new Stage();
+					refMenu.setTitle("SARL INDIGO");
+					refMenu.getIcons().add(img);
 					try {
 						// Load root layout from fxml file.
 						FXMLLoader loader = new FXMLLoader();
@@ -162,13 +158,18 @@ public class IconnectControl implements Initializable {
 						
 						// etablie une connexion  de IconnectControl(le controleur) avec le mainApp.
                         MenuControl controller = loader.getController();
-						controller.setControl(this);
+						controller.setMenu(refMenu);
 						
 						// Show the scene containing the root layout.
 						Scene scene = new Scene(anchor);
-						stage.setScene(scene);
-						stage.show();
-	                    exit.close();		
+						refMenu.setScene(scene);
+						refMenu.show();
+						try {
+							refdeConnect.close();
+						}catch(Exception e) {
+							refdeMenuC.close();
+						}
+	                    		
 	            
 						} catch (IOException e) {
 							e.printStackTrace();
@@ -180,12 +181,16 @@ public class IconnectControl implements Initializable {
 						}
 			if(verifie()==3){
 									msg1.setText("Mot de Passe Incorrect");
+									error1.setVisible(true);
 								}
 			if(verifie()==2) {
 									msg.setText("Speudo Incorrect");
+									error.setVisible(true);
 								}
 			if(verifie()==0){
 									msg.setText("Speudo Incorrect");
+									error.setVisible(true);
+									error1.setVisible(true);
 									msg1.setText("Mot de Passe Incorrect");
 								}
 							}
@@ -219,13 +224,13 @@ public class IconnectControl implements Initializable {
 	
 	
 	
-	public Stage getStage() {
-		return stage;
-	}
+	
 	//reinitialiser les champs
 	public void annule() {
 		user.clear();;
 		pwd.clear();;
+		error.setVisible(false);
+		error1.setVisible(false);
 		msg.setText("");
 		msg1.setText("");
 	}
@@ -233,11 +238,13 @@ public class IconnectControl implements Initializable {
 		@FXML
 		public void TextFieldfocus() {
 			msg.setText("");
+			error.setVisible(false);
 		}
 		
 		@FXML
 		public void PasswordFieldfocus() {
 			msg1.setText("");
+			error1.setVisible(false);
 		}
 		//Methode permettant l'action double click
 		public void test( MouseEvent e) {

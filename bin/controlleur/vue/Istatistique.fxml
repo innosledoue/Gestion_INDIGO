@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="641.0" prefWidth="706.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.141" fx:controller="controlleur.StatisControl">
+   <children>
+      <Label layoutX="215.0" layoutY="73.0" prefHeight="93.0" prefWidth="277.0" text="fenetre de la Statistique" textFill="#2dc61f">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Label>
+      <Button fx:id="bt_menu" defaultButton="true" layoutX="69.0" layoutY="543.0" onAction="#Menu" mnemonicParsing="false" style="-fx-background-radius: 18px;" text="Menu">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Button>
+   </children>
+</AnchorPane>

@@ -23,9 +23,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TableColumn.SortType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -33,16 +32,17 @@ import javafx.stage.Stage;
 public class ArticleMenu implements Initializable{
 
 	
-	private MenuControl main;
-	private Stage stage,stage1,stage2,stage3,stage4,stage5,stage6,stage7;
-	private ObservableList<Articles>base;
+
+	private Stage  refdeArticle,refInfo,refAjout,refRech,refMod,refSupp,refMenu;
+	private ObservableList<Articles> base;
+	private Image img=new Image(getClass().getResourceAsStream("image.png"));
+	
+	private ConnBD donne1;
+	private Connection com1;
 
 	
-	private ConnBD donne;
-	private Connection com;
-	
 	@FXML
-	private TableView<Articles>table;
+	private TableView<Articles> table;
 	@FXML
 	private TableColumn<Articles,String> tcode;
 	@FXML
@@ -52,11 +52,13 @@ public class ArticleMenu implements Initializable{
 	@FXML
 	private TableColumn<Articles,Integer> tquan;
 	@FXML
-	private TableColumn<Articles,Double> tprix;
+	private TableColumn<Articles,Double> tprixU;
 	
 	@FXML
 	private Button bt_new;
-	private Articles person;
+	
+	
+	private Articles produit;
 	
 	
 
@@ -66,7 +68,7 @@ public class ArticleMenu implements Initializable{
 	}
 	
 
-	public Stage getStage() {
+	/*public Stage getStage() {
 		return this.stage;
 		}
 	public Stage getStage1() {
@@ -89,23 +91,32 @@ public class ArticleMenu implements Initializable{
 		}
 
 	public Stage getstage7() {
-		return stage7;
+		return this.stage7;
 	}
 	
 	
-	public void setControl(MenuControl ter) {
+	public void setControl1(MenuControl ter) {
 		this.main=ter;
-		
 	}
-	public Articles getArticles() {
-		return  this.person;
-	}
-	
-	
-	
 	public void setTable(Articles eer) {
 		this.table.getItems().add(eer);
 	}
+	
+	*
+	*/
+	
+	public void setArticle(Stage ter) {
+		this.refdeArticle=ter;
+		
+		
+	}
+	public Articles getArticles() {
+		return  this.produit;
+	}
+	
+	
+	
+	
 	public TableView<Articles> getTable() {
 		return this.table;
 	}
@@ -121,16 +132,23 @@ public class ArticleMenu implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 	      //TODO Auto-generated method stub
 		
-		base = FXCollections.observableArrayList();
-		 donne = new ConnBD();
-		com=donne.connect();
+		base=FXCollections.observableArrayList();
+		 donne1 = new ConnBD();
+		com1=donne1.connect();
 		try {
-			ResultSet sx=com.createStatement().executeQuery("SELECT * FROM articles ORDER BY date DESC;");
-			while(sx.next()) {
-				base.add(new Articles(sx.getString("code"),sx.getString("code_categorie"),sx.getString("designation"),sx.getInt("quantite"),sx.getDouble("prix_unitaire"),DateText(sx.getDate("date"))));
-			}
+			ResultSet sx=com1.createStatement().executeQuery("SELECT * FROM articles ORDER BY date DESC;");
 			
-		} catch (SQLException e) {
+			while(sx.next()) {
+			base.add(new Articles(sx.getString("code"),sx.getString("code_categorie"),sx.getString("designation"),sx.getInt("quantite"),sx.getDouble("prix_unitaire"),DateText(sx.getDate("date"))));
+
+			}
+			try {
+				sx.close();
+				com1.close();
+			}catch(Exception ed) {
+				
+			}
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.err.println("Probleme de  connexion a la base de donne");
@@ -138,44 +156,14 @@ public class ArticleMenu implements Initializable{
 		
 		//demarche servant a initialise une tableview avec les donne lue d'une base de donne
 			// initialiser la table client avec ses differrentes column
+		
 		tcode.setCellValueFactory(new PropertyValueFactory<Articles,String>("code"));
 		tcodeCat.setCellValueFactory(new PropertyValueFactory<Articles,String>("code_categorie"));
 		tquan.setCellValueFactory(new PropertyValueFactory<Articles,Integer>("quantite"));
 		tdesig.setCellValueFactory(new PropertyValueFactory<Articles,String>("designation"));
-		tprix.setCellValueFactory(new PropertyValueFactory<Articles,Double>("prix_unitaire"));
-	
-		table.setItems(null);
+		tprixU.setCellValueFactory(new PropertyValueFactory<Articles,Double>("prix_unitaire"));
 		table.setItems(base);
 		
-		/*bt_combo.getItems().add("Par default");
-		bt_combo.getItems().add("CODE");
-		bt_combo.getItems().add("NOM");
-		bt_combo.getItems().add("PRENOM");
-		
-		 * dans cette figure notre controlleu possede une liste deroulante dc l'action de click se fait sur les ligne soit les tablerow
-		
-		bt_combo.setOnMouseClicked(e-> {
-			if(bt_combo.getSelectionModel().selectedItemProperty().equals("CODE")) {
-				table_code.setSortable(true);
-				table_code.setEditable(true);
-			
-			}
-			if(bt_combo.getSelectionModel().selectedItemProperty().equals("NOM")) {
-				table_nom.setSortable(true);
-				table_nom.setEditable(true);
-			}
-			if(bt_combo.getSelectionModel().selectedItemProperty().equals("PRENOM")) {
-				table_prenom.setSortable(true);
-				table_prenom.setEditable(true);
-			}
-			if(bt_combo.getSelectionModel().selectedItemProperty().equals("Par default")) {
-				table_date.setSortable(true);
-				table_date.setEditable(true);
-			} 
-				
-		
-			
-	});*/
 		table.setRowFactory( tv -> {
 			   TableRow<Articles> row = new TableRow<>();
 			   row.setOnMouseClicked(e -> {
@@ -192,7 +180,7 @@ public class ArticleMenu implements Initializable{
 					}                   
 			      }
 			   });
-			   person=table.getSelectionModel().getSelectedItem();
+			   produit=table.getSelectionModel().getSelectedItem();
 			   return row;
 			});
 		
@@ -245,14 +233,15 @@ public class ArticleMenu implements Initializable{
 	}
 	*/
 
-	public void voirInfo( Articles produit) throws IOException, SQLException, Exception {
+	public void voirInfo( Articles prod) throws IOException, SQLException, Exception {
 		if(produit!=null) {
 			 try {
-				  Stage exit=main.getStage();  
+				  
 				 
 				 // Create the dialog Stage.
-			        stage = new Stage();
-			        stage.setTitle("Edit Articles");
+			        refInfo= new Stage();
+			        refInfo.setTitle("Edit Articles");
+			        refInfo.getIcons().add(img);
 			        
 			        // Load the fxml file and create a new stage for the popup dialog.
 			        FXMLLoader loader = new FXMLLoader();
@@ -261,19 +250,20 @@ public class ArticleMenu implements Initializable{
 			        	
 			        IarticleAjoutControl controller = loader.getController();
 			        controller.setcontrol1(this);
-			        controller.setClient(homme);
+			        controller.setInfo(refInfo);
+			        controller.setClient(produit);
 			        
 			      
-			        stage.initModality(Modality.WINDOW_MODAL);
-			        stage.initOwner(exit);
+			        refInfo.initModality(Modality.WINDOW_MODAL);
+			        refInfo.initOwner(refdeArticle);
 			        Scene scene = new Scene(page);
-			        stage.setScene(scene);
+			        refInfo.setScene(scene);
 
 			        // Set the person into the controller.
 			        
 
 			        // Show the dialog and wait until the user closes it
-			        stage.showAndWait();
+			        refInfo.showAndWait();
 
 			       
 			    } catch (IOException e) {
@@ -289,28 +279,30 @@ public class ArticleMenu implements Initializable{
 	@FXML
 	public void articleAjout() throws Exception {
 		try {
-			 Stage exit=main.getStage();
+			 
 		        // Load the fxml file and create a new stage for the popup dialog.
 		        FXMLLoader loader = new FXMLLoader();
-		        loader.setLocation(Iclient_MenuControl.class.getResource("vue/IarticleAjout.fxml"));
+		        loader.setLocation(ArticleMenu.class.getResource("vue/IarticleAjout.fxml"));
 		        AnchorPane page = (AnchorPane) loader.load();
 		        	
 		        
 		        // Create the dialog Stage.
-		        stage1  = new Stage();
-		        stage1.setTitle("Edit Articles");
-		        stage1.initModality(Modality.WINDOW_MODAL);
-		        stage1.initOwner(exit);
+		        refAjout = new Stage();
+		        refAjout.getIcons().add(img);
+		        refAjout.setTitle("SARL Indigo");
+		        refAjout.initModality(Modality.WINDOW_MODAL);
+		        refAjout.initOwner(refdeArticle);
 		        Scene scene = new Scene(page);
-		        stage1.setScene(scene);
+		        refAjout.setScene(scene);
 
 		        // Set the person into the controller.
 		        IarticleAjoutControl controller = loader.getController();
 		        controller.setcontrol1(this);
-		        controller.setClient(person);
+		        controller.setAjout(refAjout);
+		        //controller.setClient(person);
 
 		        // Show the dialog and wait until the user closes it
-		        stage1.showAndWait();
+		        refAjout.showAndWait();
 
 		       
 		    } catch (IOException e) {
@@ -323,84 +315,87 @@ public class ArticleMenu implements Initializable{
           
      @FXML
 	public void articleRech() throws Exception {
-		Stage exit=main.getStage();
-		stage2 = new Stage();
-        stage2.setTitle("SARL INDIGO");
-        
+	
+		refRech = new Stage();
+        refRech.setTitle("SARL INDIGO");
+        refRech.getIcons().add(img);
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(Iclient_MenuControl.class.getResource("vue/articleModifi.fxml"));
+        loader.setLocation(ArticleMenu.class.getResource("vue/IarticleModifi.fxml"));
         AnchorPane page = (AnchorPane) loader.load();
         
         Scene scene = new Scene(page);
-        stage2.setScene(scene);
+        refRech.setScene(scene);
         
-        stage2.initModality(Modality.WINDOW_MODAL);
-        stage2.initOwner(exit);
+        refRech.initModality(Modality.WINDOW_MODAL);
+        refRech.initOwner(refdeArticle);
         //permet de connecter les controleurs
-        articleModifiControl controller = loader.getController();
+        IarticleModifiControl controller = loader.getController();
          controller.setControl1(this);
+         controller.setRech(refRech);
          
-       stage2.showAndWait();
+       refRech.showAndWait();
          
 	}
      
     @FXML
- 	public void clientModif() throws IOException {
- 		
- 		Stage exit=main.getStage();
- 		stage3 = new Stage();
-         stage3.setTitle("SARL INDIGO");
+ 	public void articleModif() throws IOException {
+ 		refMod = new Stage();
+         refMod.setTitle("SARL INDIGO");
+         refMod.getIcons().add(img);
          FXMLLoader loader = new FXMLLoader();
-         loader.setLocation(Iclient_MenuControl.class.getResource("vue/IarticlesModifi.fxml"));
+         loader.setLocation(ArticleMenu.class.getResource("vue/IarticleModifi.fxml"));
          AnchorPane page = (AnchorPane) loader.load();
          Scene scene = new Scene(page);
-         stage3.setScene(scene);
-         Modifi_ClientsControl control=loader.getController();
+         refMod.setScene(scene);
+         IarticleModifiControl control=loader.getController();
          control.setControl2(this);
+         control.setMod(refMod);
          
          //control.setTable(this.table);
-         stage3.initModality(Modality.WINDOW_MODAL);
-         stage3.initOwner(exit);
+         refMod.initModality(Modality.WINDOW_MODAL);
+         refMod.initOwner(refdeArticle);
          
          //controller.setClient(person);
          //stage.initModality(Modality.WINDOW_MODAL);
          //stage.initOwner(((Node) event.getSource()).getScene().getWindow());
-         stage3.showAndWait();
+         refMod.showAndWait();
         
  	}
 
         
 	@FXML
-	public void clientSupp() throws IOException {
-		Stage exit=main.getStage();
+	public void articleSupp() throws IOException {
 
-		stage4 = new Stage();
-        stage4.setTitle("SARL INDIGO");
+
+		refSupp = new Stage();
+        refSupp.setTitle("SARL INDIGO");
+        refSupp.getIcons().add(img);
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(Iclient_MenuControl.class.getResource("vue/IarticlesModifi.fxml"));
+        loader.setLocation(ArticleMenu.class.getResource("vue/IarticleModifi.fxml"));
         AnchorPane page = (AnchorPane) loader.load();
         Scene scene = new Scene(page);
-        Modifi_ClientsControl control=loader.getController();
+        IarticleModifiControl control=loader.getController();
         control.setControl3(this);
+        control.setSupp(refSupp);
        
-        stage4.setScene(scene);
-        stage4.initModality(Modality.WINDOW_MODAL);
-        stage4.initOwner(exit);
+        refSupp.setScene(scene);
+        refSupp.initModality(Modality.WINDOW_MODAL);
+       refSupp.initOwner(refdeArticle);
       
-        stage4.showAndWait();
+        refSupp.showAndWait();
 	}
-		@FXML
+	/*	@FXML
 	public void Apercu_article() throws IOException {
 			Stage exit=main.getStage();
 
 			stage5 = new Stage();
 	        stage5.setTitle("SARL INDIGO");
 	        FXMLLoader loader = new FXMLLoader();
-	        loader.setLocation(Iclient_MenuControl.class.getResource("vue/IarticleImpr.fxml"));
+	        loader.setLocation(ArticleMenu.class.getResource("vue/IarticleImpr.fxml"));
 	        AnchorPane page = (AnchorPane) loader.load();
 	        Scene scene = new Scene(page);
 	        Modifi_ClientsControl control=loader.getController();
-	        control.setControl3(this);
+	        //control.setControl3(this);
 	       
 	        stage5.setScene(scene);
 	        stage5.initModality(Modality.WINDOW_MODAL);
@@ -416,40 +411,33 @@ public class ArticleMenu implements Initializable{
 				stage6 = new Stage();
 		        stage6.setTitle("SARL INDIGO");
 		        FXMLLoader loader = new FXMLLoader();
-		        loader.setLocation(Iclient_MenuControl.class.getResource("vue/IarticleImpr.fxml"));
+		        loader.setLocation(ArticleMenu.class.getResource("vue/IarticleImpr.fxml"));
 		        AnchorPane page = (AnchorPane) loader.load();
 		        Scene scene = new Scene(page);
 		        Modifi_ClientsControl control=loader.getController();
-		        control.setControl3(this);
-		       
+		        //control.setControl3(this);
 		        stage6.setScene(scene);
 		        stage6.initModality(Modality.WINDOW_MODAL);
 		        stage6.initOwner(exit);
-		      
-		        stage5.showAndWait();
-	          
+		        stage5.showAndWait();     
 		}
-		
-		
-		
+		*/
 	@FXML
 	public void Menu() throws IOException {
-		Stage exit=main.getStage();
-		stage7= new Stage();
-        stage7.setTitle("SARL INDIGO");
+	
+		refMenu= new Stage();
+        refMenu.setTitle("SARL INDIGO");
+        refMenu.getIcons().add(img);
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(Iclient_MenuControl.class.getResource("vue/MenuApp.fxml"));
+        loader.setLocation(ArticleMenu.class.getResource("vue/MenuApp.fxml"));
         AnchorPane page = (AnchorPane) loader.load();
         MenuControl controller = loader.getController();
-		controller.setControl1(this);
-        		
+		controller.setMenu2(refMenu);
         Scene scene = new Scene(page);
-        stage7.setScene(scene);
-        stage7.show();
-        exit.close();
-     
+        refMenu.setScene(scene);
+        refMenu.show();
+        refdeArticle.close(); 
 	}
-	
 	//methode qui permet le typage d'une Date en String
 	public String DateText(Date ert) {
 		SimpleDateFormat temp=new SimpleDateFormat("dd-MM-YYYY");
@@ -457,20 +445,9 @@ public class ArticleMenu implements Initializable{
 		return textDate;
 	}
 	
-	
-	
-	
 	//fait Passe de Integer en int
 	public int forme(Integer rt) {
 		return rt.intValue();
 	}
-	
-
-	
-
-	
-	
-	
-	
 	
 }

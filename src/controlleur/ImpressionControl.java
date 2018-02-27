@@ -48,7 +48,7 @@ public class ImpressionControl implements Initializable {
 	public void setControl(Modifi_ClientsControl ert) {
 		this.main=ert;
 		try{	
-         	exit=main.getStage();
+         	//exit=main.getStage();
          	 bt_ok.setVisible(true);
          	 
          	 
@@ -64,7 +64,7 @@ public class ImpressionControl implements Initializable {
 	
 		
 		try{	
-         	exit1=main1.getStage1();
+         	//exit1=main1.getStage1();
          	bt_impr.setVisible(true);
          	tx_code.setText(person.getCode());
         	tx_nom.setText(person.getNom());

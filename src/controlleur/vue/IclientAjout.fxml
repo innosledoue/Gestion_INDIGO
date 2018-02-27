@@ -100,7 +100,7 @@
             <Font name="Berlin Sans FB" size="14.0" />
          </font>
       </CheckBox>
-      <Label layoutX="283.0" layoutY="190.0" prefHeight="18.0" prefWidth="88.0" text="Date Creation">
+      <Label layoutX="291.0" layoutY="190.0" prefHeight="18.0" prefWidth="88.0" text="Date Creation">
          <font>
             <Font name="Berlin Sans FB" size="14.0" />
          </font>
@@ -115,7 +115,7 @@
       <TextField fx:id="tx_mobile" layoutX="371.0" layoutY="340.0" onMouseClicked="#sensmobile" prefHeight="25.0" prefWidth="190.0" />
       <TextField fx:id="tx_email" layoutX="91.0" layoutY="378.0" prefHeight="25.0" prefWidth="175.0" />
       <TextArea fx:id="tx_remarque" focusTraversable="false" layoutX="86.0" layoutY="435.0" prefHeight="75.0" prefWidth="496.0" wrapText="true" />
-      <TextField fx:id="tx_date" editable="false" focusTraversable="false" layoutX="371.0" layoutY="187.0" prefHeight="25.0" prefWidth="88.0" />
+      <TextField fx:id="tx_date" editable="false" focusTraversable="false" layoutX="380.0" layoutY="187.0" prefHeight="25.0" prefWidth="88.0" />
       <Button fx:id="bt_annule" layoutX="185.0" layoutY="559.0" mnemonicParsing="false" onAction="#efface" prefHeight="25.0" prefWidth="100.0" style="-fx-background-color: #190000; -fx-background-radius: 20px;" text="Annuler" textFill="#d6c9c9">
          <effect>
             <DropShadow height="9.14" radius="1.7850000000000001" width="0.0" />
@@ -151,7 +151,7 @@
             <Image url="@../../../Image_Pro/login/sign-delete-icon.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="iv_code" fitHeight="19.0" fitWidth="20.0" layoutX="192.0" layoutY="190.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="iv_code" fitHeight="19.0" fitWidth="20.0" layoutX="191.0" layoutY="190.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../Image_Pro/login/sign-delete-icon.png" />
          </image>
@@ -167,5 +167,6 @@
          </image>
       </ImageView>
       <Label fx:id="lb_info" layoutX="182.0" layoutY="144.0" prefHeight="17.0" prefWidth="250.0" text="veuillez a bien renseigner les champs !!!!" textFill="#ee0a0a" />
+      <Label fx:id="lb_error" layoutX="209.0" layoutY="191.0" text=" exite déja" textFill="#ee0909" visible="false" />
    </children>
 </AnchorPane>

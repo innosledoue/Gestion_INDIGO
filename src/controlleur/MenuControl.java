@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 
 
@@ -18,10 +19,9 @@ import javafx.scene.layout.AnchorPane;
 
 public class MenuControl implements Initializable {
 	
-	private Stage stage,stage1,stage2,stage3,stage4;
-	private Stage exit;
-  	private IconnectControl main;
-  	Iclient_MenuControl main1;
+	private Stage refClient,refCommande,refArticle,refStatis,refConfig,refConnect;
+	private Stage refdeMenu,refdeMenuCl,refdeMenuC,refdeMenuA,refdeMenuS,refdeMenuCf;
+	private Image img=new Image(getClass().getResourceAsStream("image.png"));
   	
 	@FXML
 	private Button cli;
@@ -51,36 +51,51 @@ public class MenuControl implements Initializable {
 		
 	}
 	
-	public Stage getStage() {
-		return this.stage;
-		}
-	public Stage getStage1() {
-		return this.stage1;
-		}
-	public Stage getStage2() {
-		return this.stage2;
-		}
-	public Stage getStage3() {
-		return this.stage3;
-		}
-	public Stage getStage4() {
-		return this.stage4;
-		}
 	
 	
 	
-	
-	public void setControl(IconnectControl ter) {
-		this.main=ter;
+	public void setMenu(Stage ter) {
+		this.refdeMenu=ter;
 						}
-	public void setControl(Iclient_MenuControl ter) {
-		this.main1=ter;
+	
+	public void setMenu1(Stage ter) {
+		this.refdeMenuCl=ter;
+						}
+	public void setMenu2(Stage ter) {
+		this.refdeMenuA=ter;
+						}
+	public void setMenu3(Stage ter) {
+		this.refdeMenuC=ter;
+						}
+	public void setMenu4(Stage ter) {
+		this.refdeMenuS=ter;
+	}
+	public void setMenu5(Stage ter) {
+		this.refdeMenuCf=ter;
+	}
+	
+	
+	public void setMenuclient(Stage ter) {
+		this.refdeMenuCl=ter;
+	
+				}
+	public void setMenuComm(Stage ter) {
+		this.refdeMenuC=ter;
+				}
+	public void setMenuArticle(Stage ter) {
+		this.refdeMenuA=ter;
 		
 				}
-
+	public void setMenuConfig(Stage ter) {
+		this.refdeMenuCf=ter;
+				}
+	public void setMenuStatis(Stage ter) {
+		this.refdeMenuS=ter;
+		
+				}
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
 
 		cli.setOnMouseClicked(e-> {
 			if(e.getClickCount()>=2) {
@@ -116,31 +131,44 @@ public class MenuControl implements Initializable {
 	@FXML
 	public void clientApp() throws Exception {
 		
-	     stage=new Stage();
-         stage.setTitle("SARL INDIGO");
-        
+	     refClient=new Stage();
+         refClient.setTitle("SARL INDIGO");
+         refClient.getIcons().add(img);
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MenuControl.class.getResource("vue/Iclient_Menu.fxml"));
             AnchorPane anchor= (AnchorPane) loader.load();
             Scene scene = new Scene(anchor);
-            stage.setScene(scene);
-                      
+            refClient.setScene(scene);
          // etablie une connexion  de IconnectControl(le controleur) avec le mainApp.
             Iclient_MenuControl controller = loader.getController();
-            controller.setControl(this);
-            
-            
+            controller.setClient(refClient);
             //ouverture de la fenetre Iclient_Menu et fermeture de celle ci
-            
+            refClient.show(); 
             try{
-            	exit=main.getStage();
-            	stage.show(); 
-            	exit.close();}
-    		catch(NullPointerException e ) {
-    			exit=main1.getstage7();
-    			stage.show(); 
-    			exit.close();
+            	
+          	refdeMenu.close();
+          	}
+    		catch(Exception e ) {
+    			try {
+    				refdeMenuCl.close();
+    			}catch(Exception ee) {
+    				try {
+    					refdeMenuC.close();
+    				}catch(Exception ze) {
+    					try{
+    						refdeMenuA.close();
+    					}catch(Exception es) {
+    						try{
+    							refdeMenuS.close();
+    						}catch(Exception er) {
+    							refdeMenuCf.close();
+    						}
+    					}
+    				}
+    			}
+
+    		
     		}
             
     		}
@@ -149,44 +177,213 @@ public class MenuControl implements Initializable {
 	
 	@FXML
 	public void commandeApp() throws Exception {
-		Stage exit=main.getStage();
-		stage1=new Stage();
-        stage1.setTitle("SARL INDIGO");
-        stage1.setScene(new Scene(FXMLLoader.load(getClass().getResource("vue/MenuApp.fxml"))));
-        stage1.show();   
-        exit.close();
+		
+		refCommande=new Stage();
+        refCommande.setTitle("SARL INDIGO");
+        refCommande.getIcons().add(img);
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(MenuControl.class.getResource("vue/Icommandes.fxml"));
+        AnchorPane anchor1= (AnchorPane) loader.load();
+        Scene scene = new Scene(anchor1);
+        refCommande.setScene(scene);
+        IcommandeControl controller = loader.getController();
+        controller.setCommande(refCommande);
+               
+        	refCommande.show(); 
+        	try{
+            	
+              	refdeMenu.close();
+              	}
+        		catch(Exception e ) {
+        			try {
+        				refdeMenuCl.close();
+        			}catch(Exception ee) {
+        				try {
+        					refdeMenuC.close();
+        				}catch(Exception ze) {
+        					try{
+        						refdeMenuA.close();
+        					}catch(Exception es) {
+        						try{
+        							refdeMenuS.close();
+        						}catch(Exception er) {
+        							refdeMenuCf.close();
+        						}
+        					}
+        				}
+        			}
+        			}
+
+        		
         
 	}
 	@FXML
 	public void articleApp() throws Exception {
-		Stage exit=main.getStage();
-		stage2=new Stage();
-		stage2 = new Stage();
-        stage2.setTitle("SARL INDIGO");
-        stage2.setScene(new Scene(FXMLLoader.load(getClass().getResource("vue/MenuApp.fxml"))));
-        
-        stage2.show();
-        exit.close();
+		 refArticle=new Stage();
+         refArticle.setTitle("SARL INDIGO");
+         refArticle.getIcons().add(img);
+           // Load root layout from fxml file.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MenuControl.class.getResource("vue/Fen_Articles.fxml"));
+            AnchorPane anchor2= (AnchorPane) loader.load();
+            Scene scene = new Scene(anchor2);
+            refArticle.setScene(scene);         
+         // etablie une connexion  de IconnectControl(le controleur) avec le mainApp.
+            ArticleMenu controller = loader.getController();
+            controller.setArticle(refArticle);
+            //ouverture de la fenetre Iclient_Menu et fermeture de celle ci
+            refArticle.show();
+            try{
+            	
+              	refdeMenu.close();
+              	}
+        		catch(Exception e ) {
+        			try {
+        				refdeMenuCl.close();
+        			}catch(Exception ee) {
+        				try {
+        					refdeMenuC.close();
+        				}catch(Exception ze) {
+        					try{
+        						refdeMenuA.close();
+        					}catch(Exception es) {
+        						try{
+        							refdeMenuS.close();
+        						}catch(Exception er) {
+        							refdeMenuCf.close();
+        						}
+        					}
+        				}
+        			}
+        			}
+
+        		
 	}
 	@FXML
 	public void statistqueApp() throws IOException {
-		Stage exit=main.getStage();
-		stage3=new Stage();
-        stage3.setTitle("SARL INDIGO");
-        stage3.setScene(new Scene(FXMLLoader.load(getClass().getResource("vue/MenuApp.fxml"))));
-        stage3.show();
-       exit.close();
+		refStatis=new Stage();
+        refStatis.setTitle("SARL INDIGO");
+        refStatis.getIcons().add(img);
+     // Load root layout from fxml file.
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(MenuControl.class.getResource("vue/Istatistique.fxml"));
+        AnchorPane anchor3= (AnchorPane) loader.load();
+        Scene scene = new Scene(anchor3);
+        refStatis.setScene(scene);         
+     // etablie une connexion  de IconnectControl(le controleur) avec le mainApp.
+        StatisControl controller = loader.getController();
+        controller.setStatis(refStatis);
+        //ouverture de la fenetre Iclient_Menu et fermeture de celle ci
+       refStatis.show();
+        try{
+        	
+          	refdeMenu.close();
+          	}
+    		catch(Exception e ) {
+    			try {
+    				refdeMenuCl.close();
+    			}catch(Exception ee) {
+    				try {
+    					refdeMenuC.close();
+    				}catch(Exception ze) {
+    					try{
+    						refdeMenuA.close();
+    					}catch(Exception es) {
+    						try{
+    							refdeMenuS.close();
+    						}catch(Exception er) {
+    							refdeMenuCf.close();
+    						}
+    					}
+    				}
+    			}
+
+    		
+		}
+
 	}
 	@FXML
 	public void parametreApp() throws IOException {
-		Stage exit=main.getStage();
-		stage4=new Stage();
+		refConfig=new Stage();
+        refConfig.setTitle("SARL INDIGO");
+        refConfig.getIcons().add(img);
+     // Load root layout from fxml file.
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(MenuControl.class.getResource("vue/Iconfiguration.fxml"));
+        AnchorPane anchor4= (AnchorPane) loader.load();
+        Scene scene = new Scene(anchor4);
+        refConfig.setScene(scene);         
+     // etablie une connexion  de IconnectControl(le controleur) avec le mainApp.
+        ConfigControl controller = loader.getController();
+        controller.setConfig(refConfig);
+        //ouverture de la fenetre Iclient_Menu et fermeture de celle ci
+       refConfig.show();
+        try{
+        	
+          	refdeMenu.close();
+          	}
+    		catch(Exception e ) {
+    			try {
+    				refdeMenuCl.close();
+    			}catch(Exception ee) {
+    				try {
+    					refdeMenuC.close();
+    				}catch(Exception ze) {
+    					try{
+    						refdeMenuA.close();
+    					}catch(Exception es) {
+    						try{
+    							refdeMenuS.close();
+    						}catch(Exception er) {
+    							refdeMenuCf.close();
+    						}
+    					}
+    				}
+    			}
+
+    		}
+	}
+	@FXML
+	public void verrou() throws Exception {
 		
-        stage4.setTitle("SARL INDIGO");
-        stage4.setScene(new Scene(FXMLLoader.load(getClass().getResource("vue/MenuApp.fxml"))));
-         stage4.show(); 
-         exit.close();
-     
+		refConnect=new Stage();
+        refConnect.setTitle("SARL INDIGO");
+        refConnect.getIcons().add(img);
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("vue/Iconnect.fxml"));
+        AnchorPane anchor1= (AnchorPane) loader.load();
+        Scene scene = new Scene(anchor1);
+        refConnect.setScene(scene);
+        IconnectControl controller = loader.getController();
+        controller.setConnect1(refConnect);
+               
+        	refConnect.show(); 
+        	try{
+            	
+              	refdeMenu.close();
+              	}
+        		catch(Exception e ) {
+        			try {
+        				refdeMenuCl.close();
+        			}catch(Exception ee) {
+        				try {
+        					refdeMenuC.close();
+        				}catch(Exception ze) {
+        					try{
+        						refdeMenuA.close();
+        					}catch(Exception es) {
+        						try{
+        							refdeMenuS.close();
+        						}catch(Exception er) {
+        							refdeMenuCf.close();
+        						}
+        					}
+        				}
+        			}
+        			}
+
+        		
+        
 	}
 	
 	// loader.setLocation(IconnectControl.class.getResource("vue/IclientPresent.fxml"));

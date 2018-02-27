@@ -1,5 +1,9 @@
 package controlleur.donnee;
 
+
+
+
+
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -18,6 +22,8 @@ public class Client {
 	private  StringProperty remarque ;
 	private  IntegerProperty carte_fidele;
 	private  StringProperty date;
+	
+	
 	
 	public Client() {
 	}

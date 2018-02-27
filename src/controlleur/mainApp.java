@@ -10,22 +10,21 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 
 public class mainApp extends Application {
 
 	private Stage stage;
 	private AnchorPane anchor;
+	private Image img=new Image(getClass().getResourceAsStream("image.png"));
 	
-	public Stage getStage() {
-		return this.stage;
-	}
 	
 	@Override
 	public void start(Stage primaryStage) {
-		this.stage = primaryStage;
-        this.stage.setTitle("SARL INDIGO");
-        // place icon de l'application
+		stage = primaryStage;
+        stage.setTitle("SARL INDIGO");
+        stage.getIcons().add(img);
         affiche();
 	}
 	
@@ -33,7 +32,7 @@ public class mainApp extends Application {
 		try {
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(mainApp.class.getResource("vue/Iconnect.fxml"));
+            loader.setLocation(getClass().getResource("vue/Iconnect.fxml"));
             anchor= (AnchorPane) loader.load();
 
             // Show the scene containing the root layout.
@@ -43,7 +42,7 @@ public class mainApp extends Application {
             
          // etablie une connexion  de IconnectControl(le controleur) avec le mainApp.
             IconnectControl controller = loader.getController();
-            controller.setControl(this);
+            controller.setConnect(stage);
             //choix=controller.getboolean();
             
         } catch (IOException e) {

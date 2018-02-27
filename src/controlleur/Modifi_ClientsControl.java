@@ -1,7 +1,6 @@
 package controlleur;
 
 
-import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -20,9 +19,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
+
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -37,9 +35,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 
@@ -47,7 +43,7 @@ public class Modifi_ClientsControl implements Initializable {
 
 	
 	private Iclient_MenuControl main,main1,main2,main3,main4;
-	private Stage exit,exit1,exit2,stage,stage1;
+	private Stage refdeMod,refdeSupp,refdeRech;
 	private ConnBD donne;
 	private ObservableList<Client> base1;
 	private ArrayList<Client>base;
@@ -83,10 +79,11 @@ public class Modifi_ClientsControl implements Initializable {
 	@FXML
 	private Label lb_new,lb_code,lb_nom,lb_prenom,lb_ville,lb_addresse,lb_email,lb_mobile,lb_tel_fixe,lb_remarque,lb_date,lb_codeP,lb_rien;
 	
+	
 	private String axe;
-	private int nbre,cartevaleur,a=0,m=0,p=0,er,imp=0;
+	private int nbre,a=0,m=0,p=0;
 	private Client person=new Client();
-	private Client personadd=new Client();
+	
 	
 	
 	
@@ -94,14 +91,17 @@ public class Modifi_ClientsControl implements Initializable {
 	public Modifi_ClientsControl() {
 		
 	}
-	public Stage getStage() {
-		return this.stage;
-		}
 
-	public Stage getStage1() {
-		return stage1;
-	}
-	
+public void setMod(Stage ert) {
+	this.refdeMod=ert;
+}
+public void setSupp(Stage ert) {
+	this.refdeSupp=ert;
+}
+public void setRech(Stage ert) {
+	this.refdeRech=ert;
+}
+
 	/*public void  setTABLEVIEW(TableView<Client>A) {
 		this.AZ=A;
 	}*/
@@ -110,23 +110,20 @@ public class Modifi_ClientsControl implements Initializable {
 		this.main=ert;
 		a=1;
 		try{	
-	         	exit=main.getStage2();
 	         	 lb_new.setText("Recherche de client dans le registre clientèle ");
-	         	 carte.addEventHandler(KeyEvent.ANY, new EventHandler<KeyEvent>() {
-	         		    @Override
-	         		    public void handle(KeyEvent event) {
-	         		        event.consume();
-	         		    }
-	         		});
-	         		carte.addEventFilter(MouseEvent.ANY, new EventHandler<MouseEvent>() {
-	         		    @Override
-	         		    public void handle(MouseEvent event) {
-	         		        event.consume();
-	         		    }
-	         		});
-	         		//bt_ok.setVisible(true);
-	         	}
-	 		catch(Exception eee) {
+	         	 insensible(carte);
+	         	insensible(code);
+	         	insensible(codeP);
+	         	insensible(ville);
+	         	insensible(nom);
+	         	insensible(prenom);
+	         	insensible(adresse);
+	         	insensible(texte);
+	         	insensible(mobile);
+	         	insensible(tel);
+	         	insensible(email);
+	         	insensible(date);
+		}catch(Exception eee) {
 	 			System.err.println(" ERROR VERIFY YOUR FILE"); 	 	 		}
 			
 		
@@ -137,10 +134,9 @@ public class Modifi_ClientsControl implements Initializable {
 		m=1;
 		 try{
 			 OWN=main1.getTable();
-	         	exit1=main1.getStage3();
-
+	
 	         	 lb_new.setText("Modification de client dans le registre clientèle ");
-	         	 code.setEditable(false);
+	         	insensible(code);
 	         	 nom.setEditable(true);
 	         	 prenom.setEditable(true);
 	         	 ville.setEditable(true);
@@ -174,7 +170,7 @@ public class Modifi_ClientsControl implements Initializable {
 	public void setControl3(Iclient_MenuControl ert) {
 		this.main2=ert;
 		 try{
-	         	exit2=main2.getStage4();
+	      
 	         	 lb_new.setText("Suppresion  du client dans le registre clientèle");
 	         	 own1=main2.getTable();
 	         	 carte.addEventHandler(KeyEvent.ANY, new EventHandler<KeyEvent>() {
@@ -195,7 +191,7 @@ public class Modifi_ClientsControl implements Initializable {
 	 		catch(Exception er) { System.err.println("ERROR ICI  suppresion");
 	}
 	}
-	public void setControl4(Iclient_MenuControl ert) {
+	/*public void setControl4(Iclient_MenuControl ert) {
 		this.main3=ert;
 		 try{
 	         	exit2=main3.getStage5();
@@ -242,7 +238,7 @@ public class Modifi_ClientsControl implements Initializable {
 	         	}
 	 		catch(Exception er) { System.err.println("ERROR ICI  suppresion");
 	}
-	}
+	}*/
 
 	
 
@@ -290,9 +286,9 @@ public class Modifi_ClientsControl implements Initializable {
 			   row.setOnMouseClicked(e -> {
 			      if (e.getClickCount() == 2 && (!row.isEmpty()) ) {
 			    	  
-			    	  if(imp==1){
+			    	/*  if(imp==1){
 
-			    		  try {stage = new Stage();
+			    		  try {refImp = new Stage();
 			  	        stage.setTitle("SARL INDIGO");
 			  	        FXMLLoader loader = new FXMLLoader();
 			  	        loader.setLocation(Iclient_MenuControl.class.getResource("vue/Impression.fxml"));
@@ -336,7 +332,7 @@ public class Modifi_ClientsControl implements Initializable {
 								e1.printStackTrace();
 							}
 				  	        
-			    	  }
+			    	  }*/
 			    	  person=table.getSelectionModel().getSelectedItem();
 			    	critere=table.getSelectionModel().getSelectedItem().getCode();
 
@@ -355,7 +351,7 @@ public class Modifi_ClientsControl implements Initializable {
 		table.setItems(null);
 		//table.setItems(base);
 		//table.setVisible(false);
-	
+	tx_1.setEditable(false);
 		cb.getItems().add("CODE");
 		cb.getItems().add("NOM");
 		
@@ -366,6 +362,7 @@ public class Modifi_ClientsControl implements Initializable {
 	}
 	
 	public void choix() {
+		tx_1.setEditable(true);
 		axe=cb.getSelectionModel().getSelectedItem().toString();
 		if(axe.equals("CODE")) {
 		tx_1.textProperty().addListener(observable -> length());
@@ -408,6 +405,7 @@ public class Modifi_ClientsControl implements Initializable {
 		
 			table.setVisible(true);}else {
 			lb_rien.setVisible(true);
+			table.setVisible(false);
 		}
 		
 		
@@ -494,15 +492,14 @@ public class Modifi_ClientsControl implements Initializable {
 		 
          try {//interrogation et recuperation des informations de la base de donnee
         	 Alert alert = new Alert(AlertType.WARNING);
-		        alert.initOwner(exit1);
+		        alert.initOwner(refdeMod);
 		        alert.setTitle("  Notification Systeme  ");
 		        alert.setHeaderText("Mise à jour des Données Clients");
-		        alert.setContentText("Cliquez pour effectuez la modification");
+		        alert.setContentText("Souhaitez-vous effectuez la modification");
 		        alert.showAndWait();
 		        com.createStatement().executeUpdate("UPDATE clients SET `nom`='"+nom.getText()+"',`prenom`='"+prenom.getText()+"',`carte_fidele`="+nbre +",`date`=current_date() ,`addresse`='"+adresse.getText()+"',`code_postal`='"+codeP.getText()+"',`ville`='"+ville.getText() +"',`tel_fixe`='"+tel.getText()+"',`mobile`='"+mobile.getText()+"',`email`='"+email.getText()+"',`remarque`='"+texte.getText()+"' WHERE `code`='"+code.getText()+"';");
 				// permet re recharger la page racine
 			   main1.initialize(null, null);
-			   Thread.sleep(2000);
 			   Alert alert1 = new Alert(AlertType.CONFIRMATION);
 			   alert1.setTitle("  Notification Systeme  ");
 		        alert1.setContentText("Modification reussie");
@@ -513,7 +510,7 @@ public class Modifi_ClientsControl implements Initializable {
 			e.printStackTrace();
 			System.err.println("Probleme de  connexion a la base de donne");
 		}
-		exit1.close();
+		refdeMod.close();
     }
 		
 	@FXML
@@ -523,9 +520,9 @@ public class Modifi_ClientsControl implements Initializable {
 		 try {//interrogation et recuperation des informations de la base de donnee
 			 // Nothing selected.
 		        Alert alert = new Alert(AlertType.WARNING);
-		        alert.initOwner(exit2);
+		        alert.initOwner(refdeSupp);
 		        alert.setTitle("  Notification Systeme  ");
-		        alert.setHeaderText("Souhaitez-vous supprimer le Clients");
+		        alert.setHeaderText("Souhaitez-vous supprimer le Client");
 		        alert.setContentText("Cliquez pour supprimer");
 		        alert.showAndWait();
 			   com.createStatement().executeUpdate("DELETE FROM clients WHERE `code`='"+code.getText()+"';");
@@ -541,12 +538,12 @@ public class Modifi_ClientsControl implements Initializable {
 				e.printStackTrace();
 				System.err.println("Probleme de  connexion a la base de donne");
 			}
-		 exit2.close();
+		 refdeSupp.close();
 	}
 	@FXML
 	public void OK() {
 		
-		exit.close();
+		refdeRech.close();
 	}
 	
 	public int loot(boolean ert) {
@@ -565,6 +562,48 @@ public class Modifi_ClientsControl implements Initializable {
 		return ter;
 	}
 	
+	public void insensible(TextField rt) {
+		rt.addEventHandler(KeyEvent.ANY, new EventHandler<KeyEvent>() {
+ 		    @Override
+ 		    public void handle(KeyEvent event) {
+ 		        event.consume();
+ 		    }
+ 		});
+ 		rt.addEventFilter(MouseEvent.ANY, new EventHandler<MouseEvent>() {
+ 		    @Override
+ 		    public void handle(MouseEvent event) {
+ 		        event.consume();
+ 		    }
+ 		});
+	}
+	public void insensible(CheckBox rt) {
+		rt.addEventHandler(KeyEvent.ANY, new EventHandler<KeyEvent>() {
+ 		    @Override
+ 		    public void handle(KeyEvent event) {
+ 		        event.consume();
+ 		    }
+ 		});
+ 		rt.addEventFilter(MouseEvent.ANY, new EventHandler<MouseEvent>() {
+ 		    @Override
+ 		    public void handle(MouseEvent event) {
+ 		        event.consume();
+ 		    }
+ 		});
+	}
+	public void insensible(TextArea rt) {
+		rt.addEventHandler(KeyEvent.ANY, new EventHandler<KeyEvent>() {
+ 		    @Override
+ 		    public void handle(KeyEvent event) {
+ 		        event.consume();
+ 		    }
+ 		});
+ 		rt.addEventFilter(MouseEvent.ANY, new EventHandler<MouseEvent>() {
+ 		    @Override
+ 		    public void handle(MouseEvent event) {
+ 		        event.consume();
+ 		    }
+ 		});
+	}
 	
 	
 	

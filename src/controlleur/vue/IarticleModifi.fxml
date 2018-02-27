@@ -15,7 +15,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="668.0" prefWidth="630.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="668.0" prefWidth="630.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlleur.IarticleModifiControl">
 	<!-- TODO Add Nodes -->
 	 <children>
       <Rectangle fx:id="rectangle" arcHeight="5.0" arcWidth="25.0" fill="#06464505" height="347.0" layoutX="3.0" layoutY="319.0" stroke="#00000073" strokeType="INSIDE" visible="false" width="630.0">
@@ -52,20 +52,19 @@
       <TextField fx:id="tx_cc" editable="false" layoutX="288.0" layoutY="333.0" prefHeight="25.0" prefWidth="84.0" visible="false" />
       <TextField fx:id="tx_prix" editable="false" layoutX="122.0" layoutY="530.0" prefHeight="25.0" prefWidth="112.0" visible="false" />
       <TextField fx:id="tx_qu" editable="false" layoutX="413.0" layoutY="530.0" prefHeight="25.0" prefWidth="112.0" visible="false" />
-      <TextArea fx:id="lb_texte" editable="false" layoutX="126.0" layoutY="411.0" prefHeight="89.0" prefWidth="400.0" visible="false" />
-      <ImageView fitHeight="106.0" fitWidth="105.0" layoutX="33.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+      <TextArea fx:id="texte" editable="false" layoutX="126.0" layoutY="411.0" prefHeight="89.0" prefWidth="400.0" visible="false" />
+      <ImageView fx:id="imgs" fitHeight="106.0" fitWidth="105.0" layoutX="37.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
-            <Image url="@../../../Image_Pro/menu/6.png" />
+            <Image url="@../../../Image_Pro/menu/Document-Delete-icon.png" />
          </image>
       </ImageView>
-      <Label fx:id="lb_date1" alignment="CENTER" layoutX="519.0" layoutY="326.0" prefHeight="35.0" prefWidth="105.0" />
       <Label layoutX="146.0" layoutY="29.0" prefHeight="35.0" prefWidth="327.0" text="Gestion des Articles">
          <font>
             <Font size="36.0" />
          </font>
       </Label>
-      <Label fx:id="lb_new" layoutX="146.0" layoutY="65.0" prefHeight="35.0" prefWidth="327.0" text="Rechercher un articles" />
-      <TableView fx:id="tcodeC" layoutX="3.0" layoutY="188.0" prefHeight="131.0" prefWidth="630.0" visible="false">
+      <Label fx:id="lb_new" layoutX="146.0" layoutY="65.0" prefHeight="35.0" prefWidth="327.0" text="Rechercher un article" />
+      <TableView fx:id="table" layoutX="3.0" layoutY="188.0" prefHeight="131.0" prefWidth="630.0" visible="false">
         <columns>
           <TableColumn fx:id="tcode" prefWidth="75.0" text="Code" />
           <TableColumn fx:id="tcodeC" prefWidth="75.0" text="Code Categorie" />
@@ -77,7 +76,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Button fx:id="bt_annule" alignment="CENTER" cancelButton="true" layoutX="162.0" layoutY="604.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="84.0" style="-fx-background-radius: 20px;" text="Annule" visible="false">
+      <Button fx:id="bt_annule" alignment="CENTER" cancelButton="true" layoutX="162.0" layoutY="604.0" mnemonicParsing="false" onAction="#OK" prefHeight="35.0" prefWidth="84.0" style="-fx-background-radius: 20px;" text="Annule" visible="false">
          <font>
             <Font size="17.0" />
          </font>
@@ -88,7 +87,7 @@
             <DropShadow />
          </effect>
       </Button>
-      <Button fx:id="bt_ajout" alignment="CENTER" defaultButton="true" layoutX="449.0" layoutY="603.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="84.0" style="-fx-background-radius: 20px;" text="Ajouter" visible="false">
+      <Button fx:id="bt_ajout" alignment="CENTER" defaultButton="true" layoutX="449.0" layoutY="603.0" mnemonicParsing="false" onAction="#modifier" prefHeight="35.0" prefWidth="84.0" style="-fx-background-radius: 20px;" text="Ajouter" visible="false">
          <font>
             <Font size="17.0" />
          </font>
@@ -99,7 +98,7 @@
             <DropShadow />
          </effect>
       </Button>
-      <Button fx:id="bt_ok" alignment="CENTER" defaultButton="true" layoutX="464.0" layoutY="603.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="54.0" style="-fx-background-radius: 20px;" text="ok" visible="false">
+      <Button fx:id="bt_ok" alignment="CENTER" defaultButton="true" layoutX="464.0" layoutY="603.0" mnemonicParsing="false" onAction="#OK" prefHeight="38.0" prefWidth="54.0" style="-fx-background-radius: 20px;" text="ok" visible="false">
          <font>
             <Font size="17.0" />
          </font>
@@ -116,8 +115,8 @@
          </font>
       </Label>
       <ComboBox fx:id="cb" layoutX="138.0" layoutY="144.0" prefHeight="25.0" prefWidth="112.0" />
-      <TextField fx:id="tx_1" layoutX="385.0" layoutY="139.0" prefHeight="35.0" prefWidth="176.0" />
-      <Button id="bt_rech" fx:id="bt_rech" layoutX="561.0" layoutY="135.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="52.0" styleClass="bt_rech" stylesheets="@../../Style/style.css">
+      <TextField fx:id="tx_1" layoutX="384.0" layoutY="145.0" prefHeight="29.0" prefWidth="176.0" />
+      <Button id="bt_rech" fx:id="bt_rech" layoutX="561.0" layoutY="137.0" mnemonicParsing="false" onAction="#recherche" prefHeight="38.0" prefWidth="52.0" styleClass="bt_rech" stylesheets="@../../Style/style.css">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -125,7 +124,7 @@
             <DropShadow height="0.0" radius="1.0425" width="6.17" />
          </effect>
       </Button>
-      <Button fx:id="bt_suppr" layoutX="413.0" layoutY="603.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="84.0" style="-fx-background-radius: 20px;" text="Supprimer" visible="false">
+      <Button fx:id="bt_suppr" layoutX="413.0" layoutY="603.0" mnemonicParsing="false" onAction="#supprimer" prefHeight="35.0" prefWidth="84.0" style="-fx-background-radius: 20px;" text="Supprimer" visible="false">
          <font>
             <Font size="13.0" />
          </font>
@@ -136,6 +135,26 @@
             <DropShadow />
          </effect>
       </Button>
+      <TextField fx:id="tx_date" layoutX="519.0" layoutY="330.0" prefHeight="26.0" prefWidth="105.0" visible="false">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </TextField>
+      <Label fx:id="lb_rien" alignment="CENTER" layoutX="236.0" layoutY="206.0" prefHeight="60.0" prefWidth="231.0" text="Aucun Resutat trouvé" visible="false">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="img" fitHeight="106.0" fitWidth="105.0" layoutX="37.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../../../Image_Pro/crub/Actions-document-preview-icon.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="img1" fitHeight="105.0" fitWidth="112.0" layoutX="38.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../../../Image_Pro/login/images-4.jpeg" />
+         </image>
+      </ImageView>
          </children>
 	
 </AnchorPane>
